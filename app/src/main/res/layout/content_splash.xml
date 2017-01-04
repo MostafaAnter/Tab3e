@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.tab3e.SplashActivity"
+    tools:context="com.tab3e.activity.SplashActivity"
     tools:showIn="@layout/activity_splash">
 
     <ImageView
@@ -22,6 +22,19 @@
         android:orientation="vertical"
         android:layout_gravity="center|bottom"
         android:layout_marginBottom="@dimen/activity_vertical_margin">
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loading"/>
+        <ProgressBar
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:id="@+id/progressBar"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"
+            />
 
     </LinearLayout>
 </FrameLayout>
