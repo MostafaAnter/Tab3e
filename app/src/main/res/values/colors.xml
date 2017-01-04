@@ -6,4 +6,6 @@
 
     <color name="mainTextBlue">#097db0</color>
     <color name="secondTextGray">#475258</color>
+
+    <color name="border_blue">#7fb9df</color>
 </resources>
