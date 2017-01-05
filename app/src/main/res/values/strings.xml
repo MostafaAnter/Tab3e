@@ -8,4 +8,6 @@
     <string name="user_name">أسم المستخدم</string>
     <string name="user_password">كلمة المرور</string>
     <string name="remember_me">تذكرني</string>
+    <string name="loss_password">فقدت كلمة المرور..</string>
+    <string name="press_here"><u>أضغط هنا</u></string>
 </resources>
