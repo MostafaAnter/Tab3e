@@ -9,4 +9,11 @@
 
     <color name="border_blue">#7fb9df</color>
     <color name="text_red">#e54c3c</color>
+
+    <color name="button_blue_light">#037ab2</color>
+    <color name="button_blue_dark">#006495</color>
+
+    <color name="button_green_light">#31ab62</color>
+    <color name="button_green_dark">#299854</color>
+
 </resources>

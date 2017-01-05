@@ -2,6 +2,7 @@ package com.tab3e.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -15,17 +16,23 @@ import com.tab3e.util.Util;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LoginActivity extends AppCompatActivity implements View.OnFocusChangeListener {
+public class LoginActivity extends AppCompatActivity implements View.OnFocusChangeListener,
+        View.OnClickListener{
 
     @BindView(R2.id.text1)TextView textView1;
     @BindView(R2.id.text2)TextView textView2;
     @BindView(R2.id.text3)TextView textView3;
     @BindView(R2.id.text4)TextView textView4;
+    @BindView(R2.id.text5)TextView textView5;
+    @BindView(R2.id.text6)TextView textView6;
     @BindView(R2.id.editText1)EditText editText1;
     @BindView(R2.id.editText2)EditText editText2;
     @BindView(R2.id.checkbox1)CheckBox checkBox1;
     @BindView(R2.id.linear1)LinearLayout linear1;
     @BindView(R2.id.linear2)LinearLayout linear2;
+
+    @BindView(R2.id.card_view1)CardView cardView1;
+    @BindView(R2.id.card_view2)CardView cardView2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +45,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
         Util.changeViewTypeFace(this, "fonts/DroidKufi-Regular.ttf", textView2);
         Util.changeViewTypeFace(this, "fonts/DroidKufi-Regular.ttf", textView3);
         Util.changeViewTypeFace(this, "fonts/DroidKufi-Regular.ttf", textView4);
+        Util.changeViewTypeFace(this, "fonts/DroidKufi-Regular.ttf", textView5);
+        Util.changeViewTypeFace(this, "fonts/DroidKufi-Regular.ttf", textView6);
         Util.changeViewTypeFace(this, "fonts/DroidKufi-Regular.ttf", editText1);
         Util.changeViewTypeFace(this, "fonts/DroidKufi-Regular.ttf", editText2);
         Util.changeViewTypeFace(this, "fonts/DroidKufi-Regular.ttf", checkBox1);
@@ -45,6 +54,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
         // set focuse
         editText1.setOnFocusChangeListener(this);
         editText2.setOnFocusChangeListener(this);
+
+        // on click
+        cardView1.setOnClickListener(this);
+        cardView2.setOnClickListener(this);
     }
 
     @Override
@@ -69,6 +82,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
                         break;
                 }
             }
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.card_view1:
+                break;
+            case R.id.card_view2:
+                break;
         }
     }
 }

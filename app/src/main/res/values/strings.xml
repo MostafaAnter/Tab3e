@@ -10,4 +10,6 @@
     <string name="remember_me">تذكرني</string>
     <string name="loss_password">فقدت كلمة المرور..</string>
     <string name="press_here"><u>أضغط هنا</u></string>
+    <string name="login_button">تسجيل الدخول</string>
+    <string name="add_new_account">إنشاء حساب جديد</string>
 </resources>
