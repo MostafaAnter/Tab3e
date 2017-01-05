@@ -12,4 +12,11 @@
     <string name="press_here"><u>أضغط هنا</u></string>
     <string name="login_button">تسجيل الدخول</string>
     <string name="add_new_account">إنشاء حساب جديد</string>
+    <string name="title_activity_registeration">RegisterationActivity</string>
+    <string name="confirm_password">تأكيد كلمة المرور</string>
+    <string name="register_account">تسجيل عضوية</string>
+    <string name="fill_data">برجاء ملئ بيانات النموذج التالى</string>
+    <string name="phone_number">رقم الهاتف</string>
+    <string name="email_address">البريد الألكتروني</string>
+    <string name="accept_all_right">اوافق على كافة الشروط والأحكام</string>
 </resources>
