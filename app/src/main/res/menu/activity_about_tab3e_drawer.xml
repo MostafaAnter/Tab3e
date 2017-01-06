@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/ask_about_student"
+            android:icon="@drawable/ic_me_search"
+            android:title="@string/ask_about_student" />
+        <item
+            android:id="@+id/tables"
+            android:icon="@drawable/ic_me_tabel"
+            android:title="@string/tables" />
+        <item
+            android:id="@+id/contact"
+            android:icon="@drawable/ic_me_call"
+            android:title="@string/contact" />
+        <item
+            android:id="@+id/absent_list"
+            android:icon="@drawable/ic_me_pen"
+            android:title="@string/absent_list" />
+        <item
+            android:id="@+id/infection_list"
+            android:icon="@drawable/ic_me_pen"
+            android:title="@string/infection_list" />
+        <item
+            android:id="@+id/about_tab3e"
+            android:icon="@drawable/ic_me_about"
+            android:title="@string/about_tab3e" />
+        <item
+            android:id="@+id/log_out"
+            android:icon="@drawable/ic_me_logout"
+            android:title="@string/log_out" />
+    </group>
+
+</menu>

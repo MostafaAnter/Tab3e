@@ -19,4 +19,24 @@
     <string name="phone_number">رقم الهاتف</string>
     <string name="email_address">البريد الألكتروني</string>
     <string name="accept_all_right">اوافق على كافة الشروط والأحكام</string>
+    <string name="title_activity_ask_about_student">AskAboutStudent</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_result_of_ask_about_student">ResultOfAskAboutStudent</string>
+    <string name="title_activity_absent_doc">AbsentDoc</string>
+    <string name="title_activity_infraction_doc">InfractionDoc</string>
+    <string name="title_activity_student_details">StudentDetails</string>
+    <string name="title_activity_ask_about_table">AskAboutTable</string>
+    <string name="title_activity_table_tabs">TableTabs</string>
+    <string name="title_activity_contact_with_school">ContactWithSchool</string>
+    <string name="title_activity_about_tab3e">AboutTab3e</string>
+    <string name="title_activity_absent_roles">AbsentRoles</string>
+    <string name="ask_about_student">إستعلام عن طالب</string>
+    <string name="tables">الجداول الدراسية</string>
+    <string name="contact">للتواصل مع المدرسة</string>
+    <string name="absent_list">لائحة الغياب</string>
+    <string name="infection_list">لائحة المخالفات</string>
+    <string name="about_tab3e">عن تابع</string>
+    <string name="log_out">تسجيل الخروج</string>
 </resources>
