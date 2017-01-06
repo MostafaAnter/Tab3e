@@ -39,4 +39,8 @@
     <string name="infection_list">لائحة المخالفات</string>
     <string name="about_tab3e">عن تابع</string>
     <string name="log_out">تسجيل الخروج</string>
+    <string name="ask_about_student_title">إستعلام عن طالب</string>
+    <string name="show_data_of_student">عرض البيانات</string>
+    <string name="stu_id_num">رقم بطاقة الطالب</string>
+    <string name="stu_name">أسم الطالب</string>
 </resources>
