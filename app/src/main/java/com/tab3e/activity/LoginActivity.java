@@ -90,6 +90,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.card_view1:
+                startActivity(new Intent(this, AskAboutStudent.class));
                 break;
             case R.id.card_view2:
                 startActivity(new Intent(this, RegistrationActivity.class));

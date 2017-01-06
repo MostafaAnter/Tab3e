@@ -68,7 +68,7 @@
         <activity
             android:name=".activity.AbsentRoles"
             android:label="@string/title_activity_absent_roles"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
