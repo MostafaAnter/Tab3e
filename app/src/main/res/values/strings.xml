@@ -47,4 +47,7 @@
     <string name="student_degres">إحصائيات الطالب</string>
     <string name="contact_with_school">للتواصل مع إدارة المدرسة</string>
     <string name="to_know_available">"لمعرفة وسائل الإتصال المتاحة  "</string>
+    <string name="text_withot_cuse">بدون عذر</string>
+    <string name="text_cuse">بعذر سابق</string>
+    <string name="absent_doc">سجل الغياب</string>
 </resources>
