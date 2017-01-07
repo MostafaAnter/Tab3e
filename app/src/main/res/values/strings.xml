@@ -46,5 +46,5 @@
     <string name="Ask_result_text">نتائج الإستعلام</string>
     <string name="student_degres">إحصائيات الطالب</string>
     <string name="contact_with_school">للتواصل مع إدارة المدرسة</string>
-    <string name="to_know_available">لمعرفة وسائل الإتصال المتاحة</string>
+    <string name="to_know_available">"لمعرفة وسائل الإتصال المتاحة  "</string>
 </resources>
