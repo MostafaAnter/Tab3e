@@ -43,4 +43,8 @@
     <string name="show_data_of_student">عرض البيانات</string>
     <string name="stu_id_num">رقم بطاقة الطالب</string>
     <string name="stu_name">أسم الطالب</string>
+    <string name="Ask_result_text">نتائج الإستعلام</string>
+    <string name="student_degres">إحصائيات الطالب</string>
+    <string name="contact_with_school">للتواصل مع إدارة المدرسة</string>
+    <string name="to_know_available">لمعرفة وسائل الإتصال المتاحة</string>
 </resources>
