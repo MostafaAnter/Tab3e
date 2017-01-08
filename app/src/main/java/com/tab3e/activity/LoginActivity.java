@@ -59,6 +59,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
         // on click
         cardView1.setOnClickListener(this);
         cardView2.setOnClickListener(this);
+        textView3.setOnClickListener(this);
+        textView4.setOnClickListener(this);
     }
 
     @Override
@@ -94,6 +96,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
                 break;
             case R.id.card_view2:
                 startActivity(new Intent(this, RegistrationActivity.class));
+                break;
+            case R.id.text3:
+                startActivity(new Intent(this, ForgetPassword.class));
+                break;
+            case R.id.text4:
+                startActivity(new Intent(this, ForgetPassword.class));
                 break;
         }
     }

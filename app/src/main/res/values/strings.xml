@@ -51,4 +51,7 @@
     <string name="text_cuse">بعذر سابق</string>
     <string name="absent_doc">سجل الغياب</string>
     <string name="title_activity_infraction_roles">InfractionRoles</string>
+    <string name="title_activity_forget_password">ForgetPassword</string>
+    <string name="error_string">حدث خطأ</string>
+    <string name="no_internet">لا يوجد أتصال بالأنترنت</string>
 </resources>

@@ -2,6 +2,8 @@ package com.tab3e.util;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -65,5 +67,15 @@ public class Util {
     public static void changeViewTypeFace(Context mContext, String fontPath, TextView view){
         Typeface font = Typeface.createFromAsset(mContext.getAssets(), fontPath);
         view.setTypeface(font);
+    }
+
+    public static boolean isOnline(Context mContext) {
+        ConnectivityManager cm = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
