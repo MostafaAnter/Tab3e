@@ -69,6 +69,10 @@
         <activity
             android:name=".activity.AbsentRoles"
             android:label="@string/title_activity_absent_roles"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.InfractionRoles"
+            android:label="@string/title_activity_infraction_roles"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 

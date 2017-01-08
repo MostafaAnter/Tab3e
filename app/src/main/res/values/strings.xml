@@ -50,4 +50,5 @@
     <string name="text_withot_cuse">بدون عذر</string>
     <string name="text_cuse">بعذر سابق</string>
     <string name="absent_doc">سجل الغياب</string>
+    <string name="title_activity_infraction_roles">InfractionRoles</string>
 </resources>
