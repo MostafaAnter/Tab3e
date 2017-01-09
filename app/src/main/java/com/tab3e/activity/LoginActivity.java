@@ -4,18 +4,30 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.tab3e.BuildConfig;
 import com.tab3e.R;
 import com.tab3e.R2;
+import com.tab3e.app.AppController;
+import com.tab3e.util.SweetDialogHelper;
 import com.tab3e.util.Util;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class LoginActivity extends AppCompatActivity implements View.OnFocusChangeListener,
         View.OnClickListener{
@@ -34,6 +46,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
 
     @BindView(R2.id.card_view1)CardView cardView1;
     @BindView(R2.id.card_view2)CardView cardView2;
+
+    private String email, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +106,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.card_view1:
-                startActivity(new Intent(this, AskAboutStudent.class));
+                login();
                 break;
             case R.id.card_view2:
                 startActivity(new Intent(this, RegistrationActivity.class));
@@ -103,6 +117,90 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
             case R.id.text4:
                 startActivity(new Intent(this, ForgetPassword.class));
                 break;
+        }
+    }
+
+    private boolean validateDate(){
+        email = editText1.getText().toString().trim();
+        password = editText2.getText().toString().trim();
+
+        // first check mail format
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("نأسف !")
+                    .setContentText("البريد الالكترونى غير صالح")
+                    .show();
+            return false;
+        }
+
+
+        if (email != null && !email.trim().isEmpty()
+                && password != null && !password.trim().isEmpty()){
+
+            return true;
+
+        }else {
+            // show error message
+            new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("نأسف !")
+                    .setContentText("قم بإكمال تسجيل البيانات")
+                    .show();
+            return false;
+        }
+    }
+
+    private void login() {
+        if (Util.isOnline(this)) {
+            if (validateDate()) {
+                // Set up a progress dialog
+                final SweetDialogHelper sdh = new SweetDialogHelper(this);
+                sdh.showMaterialProgress("تحميل..");
+
+                // Tag used to cancel the request
+                String tag_string_req = "string_req";
+                String url = BuildConfig.LOGIN_URL;
+
+                StringRequest strReq = new StringRequest(Request.Method.POST,
+                        url, new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        sdh.dismissDialog();
+                       // parseFeed(response);
+                        Log.d("response", response);
+                      //  startActivity(new Intent(SignInActivity.this, ClientHomeActivity.class));
+                       // finish();
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        sdh.dismissDialog();
+                        // show error message
+                        sdh.showErrorMessage("خطأ", "البريد أو الرقم السري ربما غير صالح");
+                    }
+                }) {
+
+
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("email", email);
+                        params.put("pwd", password);
+                        return params;
+
+                    }
+                };
+
+                // Adding request to request queue
+                AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+            }
+        } else {
+            // show error message
+            new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("ناسف...")
+                    .setContentText("هناك مشكله بشبكة الانترنت حاول مره اخرى")
+                    .show();
         }
     }
 }

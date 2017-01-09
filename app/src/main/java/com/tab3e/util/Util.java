@@ -11,6 +11,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.i18n.phonenumbers.NumberParseException;
+import com.google.i18n.phonenumbers.PhoneNumberUtil;
+import com.google.i18n.phonenumbers.Phonenumber;
+
 /**
  * Created by mostafa_anter on 1/4/17.
  */
@@ -77,5 +81,20 @@ public class Util {
         } else {
             return false;
         }
+    }
+
+    public static Long LongNationalNumber(String mNumberStr){
+        PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
+        Phonenumber.PhoneNumber mNumberProto = null;
+        try {
+            mNumberProto = phoneUtil.parse(mNumberStr, "");
+        } catch (NumberParseException e) {
+            e.printStackTrace();
+        }
+        if(mNumberProto == null){
+            // there is no number show error message
+            return null;
+        }
+        return mNumberProto.getNationalNumber();
     }
 }
