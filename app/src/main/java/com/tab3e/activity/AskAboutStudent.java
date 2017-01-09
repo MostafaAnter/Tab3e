@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -17,10 +18,18 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.StringRequest;
+import com.tab3e.BuildConfig;
 import com.tab3e.R;
 import com.tab3e.R2;
 import com.tab3e.adapter.SpinnerCustomAdapter;
+import com.tab3e.app.AppController;
 import com.tab3e.model.SpinnerModel;
+import com.tab3e.parser.JsonParser;
 import com.tab3e.util.Util;
 
 import java.util.ArrayList;
@@ -161,4 +170,35 @@ public class AskAboutStudent extends AboutTab3e
 
 
     }
+
+    private void getSchools(){
+        /**
+         * this section for fetch country
+         */
+        String urlBrands = BuildConfig.SHOW_ALL_SCHOL_URL;
+        // making fresh volley request and getting jsonstatus_request
+        StringRequest jsonReq = new StringRequest(Request.Method.GET,
+                urlBrands, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                List<SpinnerModel> spinnerItemList = JsonParser.parseSpinnerFeed(response);
+                if (spinnerItemList != null) {
+                    populateSpinner1(spinnerItemList);
+                }
+                Log.d("response", response.toString());
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d("response", "Error: " + error.getMessage());
+            }
+        });
+
+        // Adding request to volley request queue
+        AppController.getInstance().addToRequestQueue(jsonReq);
+    }
+
 }
