@@ -47,7 +47,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
     @BindView(R2.id.card_view1)CardView cardView1;
     @BindView(R2.id.card_view2)CardView cardView2;
 
-    @BindView(R2.id.checkbox1)CheckBox checkBox;
 
     private String email, password;
 
