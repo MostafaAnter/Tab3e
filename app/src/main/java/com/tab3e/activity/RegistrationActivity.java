@@ -29,27 +29,42 @@ import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class RegistrationActivity extends AppCompatActivity implements View.OnFocusChangeListener,
-        View.OnClickListener{
+        View.OnClickListener {
 
-    @BindView(R2.id.text1)TextView textView1;
-    @BindView(R2.id.text2)TextView textView2;
-    @BindView(R2.id.text3)TextView textView3;
+    @BindView(R2.id.text1)
+    TextView textView1;
+    @BindView(R2.id.text2)
+    TextView textView2;
+    @BindView(R2.id.text3)
+    TextView textView3;
 
-    @BindView(R2.id.editText1)EditText editText1;
-    @BindView(R2.id.editText2)EditText editText2;
-    @BindView(R2.id.editText3)EditText editText3;
-    @BindView(R2.id.editText4)EditText editText4;
-    @BindView(R2.id.editText5)EditText editText5;
+    @BindView(R2.id.editText1)
+    EditText editText1;
+    @BindView(R2.id.editText2)
+    EditText editText2;
+    @BindView(R2.id.editText3)
+    EditText editText3;
+    @BindView(R2.id.editText4)
+    EditText editText4;
+    @BindView(R2.id.editText5)
+    EditText editText5;
 
-    @BindView(R2.id.linear1)LinearLayout linear1;
-    @BindView(R2.id.linear2)LinearLayout linear2;
-    @BindView(R2.id.linear3)LinearLayout linear3;
-    @BindView(R2.id.linear4)LinearLayout linear4;
-    @BindView(R2.id.linear5)LinearLayout linear5;
+    @BindView(R2.id.linear1)
+    LinearLayout linear1;
+    @BindView(R2.id.linear2)
+    LinearLayout linear2;
+    @BindView(R2.id.linear3)
+    LinearLayout linear3;
+    @BindView(R2.id.linear4)
+    LinearLayout linear4;
+    @BindView(R2.id.linear5)
+    LinearLayout linear5;
 
-    @BindView(R2.id.checkbox1)CheckBox checkBox1;
+    @BindView(R2.id.checkbox1)
+    CheckBox checkBox1;
 
-    @BindView(R2.id.card_view1)CardView cardView1;
+    @BindView(R2.id.card_view1)
+    CardView cardView1;
 
     private String password, userName, mobile, email;
 
@@ -84,9 +99,9 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnFo
 
     @Override
     public void onFocusChange(View view, boolean b) {
-        if (view instanceof EditText){
-            if (b){
-                switch (view.getId()){
+        if (view instanceof EditText) {
+            if (b) {
+                switch (view.getId()) {
                     case R.id.editText1:
                         linear1.setBackgroundResource(R.drawable.border_shape_blue);
                         break;
@@ -103,8 +118,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnFo
                         linear5.setBackgroundResource(R.drawable.border_shape_blue);
                         break;
                 }
-            }else {
-                switch (view.getId()){
+            } else {
+                switch (view.getId()) {
                     case R.id.editText1:
                         linear1.setBackgroundResource(R.drawable.border_shape_gray);
                         break;
@@ -127,7 +142,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnFo
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.card_view1:
                 register();
                 break;
@@ -193,7 +208,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnFo
 
     private boolean registerConditionsIsOk() {
 
-        if (!checkBox1.isChecked()){
+        if (!checkBox1.isChecked()) {
             new SweetDialogHelper(this).showErrorMessage("خطأ", "الرجاء الموافقة على الشروط والأحكام");
             return false;
         }
@@ -204,7 +219,6 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnFo
         password = editText4.getText().toString().trim();
         String password_confirmation = editText5.getText().toString().trim();
 
-
         if (userName == null || userName.trim().isEmpty()) {
             new SweetDialogHelper(this).showErrorMessage("خطأ", "الرجاء أدخال أسم المستخدم");
             return false;
@@ -212,7 +226,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnFo
         if (mobile == null || mobile.trim().isEmpty()) {
             new SweetDialogHelper(this).showErrorMessage("خطأ", "الرجاء أدخال رقم الهاتف");
             return false;
-        }else if (!checkPhoneNumber(mobile)){
+        } else if (!checkPhoneNumber(mobile)) {
             return false;
         }
 
