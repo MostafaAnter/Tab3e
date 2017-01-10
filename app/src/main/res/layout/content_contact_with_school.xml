@@ -123,7 +123,8 @@
                         android:id="@+id/text3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
+                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                        android:layout_marginStart="@dimen/activity_horizontal_margin"
                         android:text="فضلا قم بأختيار المدرسة"
                         android:textColor="@color/text_red"
                         android:textSize="12sp" />
