@@ -22,6 +22,7 @@ public class SpinnerCustomAdapter extends ArrayAdapter {
 
     private Context mContext;
     private List<SpinnerModel> mDataset;
+    private int textViewResourceId;
     LayoutInflater inflater;
 
     /*************
@@ -37,6 +38,7 @@ public class SpinnerCustomAdapter extends ArrayAdapter {
         /********** Take passed values **********/
         this.mContext = mContext;
         this.mDataset = mDataset;
+        this.textViewResourceId = textViewResourceId;
 
         /***********  Layout inflator to call external xml layout () **********************/
         inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -57,7 +59,7 @@ public class SpinnerCustomAdapter extends ArrayAdapter {
     public View getCustomView(int position, View convertView, ViewGroup parent) {
 
         /********** Inflate spinner_rows.xml file for each row ( Defined below ) ************/
-        View row = inflater.inflate(R.layout.spinner_item, parent, false);
+        View row = inflater.inflate(textViewResourceId, parent, false);
 
         TextView label = (TextView) row.findViewById(R.id.label);
         Typeface font = Typeface.createFromAsset(mContext.getAssets(), "fonts/DroidKufi-Regular.ttf");
