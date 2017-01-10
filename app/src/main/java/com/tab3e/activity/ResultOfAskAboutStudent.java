@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tab3e.R;
@@ -48,6 +49,8 @@ public class ResultOfAskAboutStudent extends AboutTab3e
     @Nullable @BindView(R2.id.card_view6)CardView cardView3;
     @Nullable @BindView(R2.id.card_view7)CardView cardView4;
 
+    @Nullable @BindView(R2.id.contact)LinearLayout contact;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +76,8 @@ public class ResultOfAskAboutStudent extends AboutTab3e
         cardView2.setOnClickListener(this);
         cardView3.setOnClickListener(this);
         cardView4.setOnClickListener(this);
+
+        contact.setOnClickListener(this);
     }
 
     @Override
@@ -118,6 +123,9 @@ public class ResultOfAskAboutStudent extends AboutTab3e
                 break;
             case R.id.card_view7:
                 startActivity(new Intent(this, StudentDetails.class));
+                break;
+            case R.id.contact:
+                startActivity(new Intent(this, ContactWithSchool.class));
                 break;
         }
     }
