@@ -485,7 +485,7 @@
                             android:ellipsize="end"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text=" المرحلة : الثانوية"
+                            android:text=""
                             android:textColor="@color/colorPrimary" />
 
                         <View
@@ -502,7 +502,7 @@
                             android:ellipsize="end"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text=" المرحلة : الثانوية"
+                            android:text=""
                             android:textColor="@color/colorPrimary" />
 
                         <View
@@ -519,7 +519,7 @@
                             android:ellipsize="end"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text=" المرحلة : الثانوية"
+                            android:text=""
                             android:textColor="@color/colorPrimary" />
 
                         <View
@@ -536,7 +536,7 @@
                             android:ellipsize="end"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text=" المرحلة : الثانوية"
+                            android:text=""
                             android:textColor="@color/colorPrimary" />
 
                         <View
@@ -553,7 +553,7 @@
                             android:ellipsize="end"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text=" المرحلة : الثانوية"
+                            android:text=""
                             android:textColor="@color/colorPrimary" />
 
                         <View
@@ -570,7 +570,7 @@
                             android:ellipsize="end"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text=" المرحلة : الثانوية"
+                            android:text=""
                             android:textColor="@color/colorPrimary" />
 
                         <View
@@ -587,7 +587,7 @@
                             android:ellipsize="end"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text=" المرحلة : الثانوية"
+                            android:text=""
                             android:textColor="@color/colorPrimary" />
 
                         <View
@@ -604,7 +604,7 @@
                             android:ellipsize="end"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text=" المرحلة : الثانوية"
+                            android:text=""
                             android:textColor="@color/colorPrimary" />
 
                         <View
@@ -621,7 +621,7 @@
                             android:ellipsize="end"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text=" المرحلة : الثانوية"
+                            android:text=""
                             android:textColor="@color/colorPrimary" />
 
                         <View
@@ -638,7 +638,7 @@
                             android:ellipsize="end"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text=" المرحلة : الثانوية"
+                            android:text=""
                             android:textColor="@color/colorPrimary" />
 
                         <View
