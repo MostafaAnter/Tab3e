@@ -40,12 +40,11 @@
                     android:gravity="center_horizontal">
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:layout_gravity="center_horizontal"
-                        android:layout_margin="2dp"
                         android:contentDescription="@null"
-                        android:padding="3dp"
+                        android:padding="1dp"
                         android:src="@drawable/ic_abs_date_icon" />
 
                     <TextView
@@ -53,6 +52,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_horizontal"
                         android:paddingTop="8dp"
+                        android:textSize="10sp"
                         android:text="21/12/2016م"
                         android:textColor="@color/colorPrimary" />
                 </LinearLayout>
@@ -70,12 +70,11 @@
                     android:gravity="center_horizontal">
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:layout_gravity="center_horizontal"
-                        android:layout_margin="2dp"
                         android:contentDescription="@null"
-                        android:padding="3dp"
+                        android:padding="1dp"
                         android:src="@drawable/ic_abs_date_icon" />
 
                     <TextView
@@ -83,6 +82,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_horizontal"
                         android:paddingTop="8dp"
+                        android:textSize="10sp"
                         android:text="21/12/2016م"
                         android:textColor="@color/colorPrimary" />
 
@@ -113,27 +113,25 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_gravity="center_vertical"
+                            android:layout_gravity="center"
                             android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="@dimen/activity_horizontal_margin"
-                            android:paddingRight="@dimen/activity_horizontal_margin"
+                            android:gravity="center"
                             android:text="مخالفة من الدرجة الثانية"
                             android:textColor="@color/text_red"
                             android:textStyle="bold" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
+                            android:layout_weight="0.1"
                             android:layout_height="match_parent"
                             android:gravity="center_horizontal">
 
                             <ImageView
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
                                 android:layout_gravity="center"
-                                android:layout_margin="2dp"
                                 android:contentDescription="@null"
-                                android:padding="3dp"
+                                android:padding="1dp"
                                 android:src="@drawable/ic_abs_time" />
 
                             <TextView
@@ -141,8 +139,6 @@
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center_vertical"
                                 android:gravity="center_vertical"
-                                android:paddingEnd="@dimen/activity_horizontal_margin"
-                                android:paddingRight="@dimen/activity_horizontal_margin"
                                 android:text="am 30:80"
                                 android:textColor="@color/secondTextGray" />
 

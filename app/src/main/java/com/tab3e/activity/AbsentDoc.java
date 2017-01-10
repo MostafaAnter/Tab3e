@@ -119,6 +119,9 @@ public class AbsentDoc extends AboutTab3e
 
         // set onClick
         cardView1.setOnClickListener(this);
+
+        // set recyclerView
+        setRecyclerView(savedInstanceState);
     }
 
     @Override
@@ -136,7 +139,10 @@ public class AbsentDoc extends AboutTab3e
 
     }
 
-    private void setmRecyclerView(Bundle savedInstanceState) {
+    private void setRecyclerView(Bundle savedInstanceState) {
+        // initiate mDataSet
+        mDataset = new ArrayList<>();
+
         mLayoutManager = new LinearLayoutManager(this);
 
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
@@ -152,8 +158,9 @@ public class AbsentDoc extends AboutTab3e
         // Set CustomAdapter as the adapter for RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
 
-        // initiate mDataSet
-        mDataset = new ArrayList<>();
+
+        // get data
+       addFakeItems();
     }
 
     public void setRecyclerViewLayoutManager(LayoutManagerType layoutManagerType) {
@@ -181,5 +188,16 @@ public class AbsentDoc extends AboutTab3e
 
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.scrollToPosition(scrollPosition);
+    }
+
+    private void addFakeItems(){
+        AbsentDocItem absentDocItem = new AbsentDocItem("", "", "","", "","");
+        for (int i = 0; i <10 ; i++) {
+            mDataset.add(absentDocItem);
+
+        }
+
+        mAdapter.notifyDataSetChanged();
+
     }
 }

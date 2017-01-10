@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.tab3e.R;
 import com.tab3e.activity.InfractionDoc;
 import com.tab3e.model.AbsentDocItem;
+import com.tab3e.model.InfractionDocItem;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ import butterknife.ButterKnife;
 public class InfractionDocAdapter extends RecyclerView.Adapter<InfractionDocAdapter.ViewHolder> {
     private static final String TAG = "CustomAdapter";
 
-    private List<InfractionDoc> mDataSet;
+    private List<InfractionDocItem> mDataSet;
     private Context mContext;
 
     /**
@@ -52,7 +53,7 @@ public class InfractionDocAdapter extends RecyclerView.Adapter<InfractionDocAdap
      *
      * @param dataSet String[] containing the data to populate views to be used by RecyclerView.
      */
-    public InfractionDocAdapter(Context mContext, List<InfractionDoc> dataSet) {
+    public InfractionDocAdapter(Context mContext, List<InfractionDocItem> dataSet) {
         this.mContext = mContext;
         mDataSet = dataSet;
     }

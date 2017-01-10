@@ -47,11 +47,13 @@
         <activity
             android:name=".activity.AbsentDoc"
             android:label="@string/title_activity_absent_doc"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="screenSize|orientation"/>
         <activity
             android:name=".activity.InfractionDoc"
             android:label="@string/title_activity_infraction_doc"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="screenSize|orientation"/>
         <activity
             android:name=".activity.StudentDetails"
             android:label="@string/title_activity_student_details"
@@ -83,7 +85,7 @@
         <activity
             android:name=".activity.ForgetPassword"
             android:label="@string/title_activity_forget_password"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

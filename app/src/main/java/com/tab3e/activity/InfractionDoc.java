@@ -18,7 +18,9 @@ import android.widget.TextView;
 import com.tab3e.R;
 import com.tab3e.R2;
 import com.tab3e.adapter.AbsentDocAdapter;
+import com.tab3e.adapter.InfractionDocAdapter;
 import com.tab3e.model.AbsentDocItem;
+import com.tab3e.model.InfractionDocItem;
 import com.tab3e.util.Util;
 
 import java.util.ArrayList;
@@ -73,9 +75,9 @@ public class InfractionDoc extends AboutTab3e
         LINEAR_LAYOUT_MANAGER
     }
 
-    protected AbsentDocAdapter mAdapter;
+    protected InfractionDocAdapter mAdapter;
     protected RecyclerView.LayoutManager mLayoutManager;
-    protected List<AbsentDocItem> mDataset;
+    protected List<InfractionDocItem> mDataset;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +104,9 @@ public class InfractionDoc extends AboutTab3e
 
         // set onClick
         cardView1.setOnClickListener(this);
+
+        // set recycler
+        setmRecyclerView(savedInstanceState);
     }
 
     @Override
@@ -115,6 +120,9 @@ public class InfractionDoc extends AboutTab3e
     }
 
     private void setmRecyclerView(Bundle savedInstanceState) {
+        // initiate mDataSet
+        mDataset = new ArrayList<>();
+
         mLayoutManager = new LinearLayoutManager(this);
 
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
@@ -126,12 +134,12 @@ public class InfractionDoc extends AboutTab3e
         }
         setRecyclerViewLayoutManager(mCurrentLayoutManagerType);
 
-        mAdapter = new AbsentDocAdapter(this, mDataset);
+        mAdapter = new InfractionDocAdapter(this, mDataset);
         // Set CustomAdapter as the adapter for RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
 
-        // initiate mDataSet
-        mDataset = new ArrayList<>();
+        // get data
+        addFakeItems();
     }
 
     public void setRecyclerViewLayoutManager(LayoutManagerType layoutManagerType) {
@@ -159,6 +167,17 @@ public class InfractionDoc extends AboutTab3e
 
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.scrollToPosition(scrollPosition);
+    }
+
+    private void addFakeItems(){
+        InfractionDocItem absentDocItem = new InfractionDocItem(null, null, null,null, null,null);
+        for (int i = 0; i <10 ; i++) {
+            mDataset.add(absentDocItem);
+
+        }
+
+        mAdapter.notifyDataSetChanged();
+
     }
 
     @Override
