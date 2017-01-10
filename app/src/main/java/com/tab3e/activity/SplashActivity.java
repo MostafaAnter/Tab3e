@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.tab3e.R;
 import com.tab3e.R2;
+import com.tab3e.store.Tab3ePrefStore;
+import com.tab3e.util.Constants;
 import com.tab3e.util.Util;
 
 import butterknife.BindView;
@@ -55,9 +57,15 @@ public class SplashActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             progressBar.setProgress(progressStatus);
-                            if (progressStatus == 100)
-                                startActivity(new Intent(SplashActivity.this, LoginActivity.class)
-                                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                            if (progressStatus == 100){
+                                if (new Tab3ePrefStore(SplashActivity.this).getPreferenceValue(Constants.USER_ID).trim().isEmpty()) {
+                                    startActivity(new Intent(SplashActivity.this, LoginActivity.class)
+                                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                                } else {
+                                    startActivity(new Intent(SplashActivity.this, AskAboutStudent.class)
+                                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                                }
+                            }
 
                         }
                     });

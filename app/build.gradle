@@ -19,7 +19,7 @@ android {
         }
     }
     buildTypes.each {
-        it.buildConfigField 'String', 'LOGIN_URL', '"http://followson.com/rest/login"'
+        it.buildConfigField 'String', 'LOGIN_URL', '"http://followson.com/rest/logFather"'
         it.buildConfigField 'String', 'SHOW_ALL_SCHOL_URL', '"http://followson.com/rest/getSchool"'
         it.buildConfigField 'String', 'REGISTER_PARENT_URL', '"http://followson.com/rest/regFather"'
     }

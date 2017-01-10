@@ -19,8 +19,14 @@ import com.tab3e.BuildConfig;
 import com.tab3e.R;
 import com.tab3e.R2;
 import com.tab3e.app.AppController;
+import com.tab3e.store.Tab3ePrefStore;
+import com.tab3e.util.Constants;
 import com.tab3e.util.SweetDialogHelper;
 import com.tab3e.util.Util;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -48,7 +54,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
     @BindView(R2.id.card_view2)CardView cardView2;
 
 
-    private String email, password;
+    private String email, password, userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +82,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
         cardView2.setOnClickListener(this);
         textView3.setOnClickListener(this);
         textView4.setOnClickListener(this);
+
+        String email = getIntent().getStringExtra("email") != null ?
+                getIntent().getStringExtra("email") : "";
+        String password = getIntent().getStringExtra("password") != null ?
+                getIntent().getStringExtra("password") : "";
+
+        editText1.setText(email);
+        editText2.setText(password);
     }
 
     @Override
@@ -107,7 +121,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.card_view1:
-                startActivity(new Intent(this, AskAboutStudent.class));
+                login();
                 break;
             case R.id.card_view2:
                 startActivity(new Intent(this, RegistrationActivity.class));
@@ -124,15 +138,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
     private boolean validateDate(){
         email = editText1.getText().toString().trim();
         password = editText2.getText().toString().trim();
-
-        // first check mail format
-        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-                    .setTitleText("نأسف !")
-                    .setContentText("البريد الالكترونى غير صالح")
-                    .show();
-            return false;
-        }
 
 
         if (email != null && !email.trim().isEmpty()
@@ -169,6 +174,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
                         sdh.dismissDialog();
                        // parseFeed(response);
                         Log.d("response", response);
+                        if (isSuccess(response)) {
+                            Intent intent = new Intent(LoginActivity.this, AskAboutStudent.class);
+                            if (checkBox1.isChecked())
+                                new Tab3ePrefStore(LoginActivity.this).addPreference(Constants.USER_ID, userId);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            sdh.showErrorMessage("خطأ", "أسم أو باسورد خطأ الرجاء إعادة المحاولة");
+                        }
                       //  startActivity(new Intent(SignInActivity.this, ClientHomeActivity.class));
                        // finish();
                     }
@@ -178,7 +192,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
                     public void onErrorResponse(VolleyError error) {
                         sdh.dismissDialog();
                         // show error message
-                        sdh.showErrorMessage("خطأ", "البريد أو الرقم السري ربما غير صالح");
+                        sdh.showErrorMessage("خطأ", "الأسم أو الرقم السري ربما غير صالح");
                     }
                 }) {
 
@@ -186,7 +200,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
                     @Override
                     protected Map<String, String> getParams() {
                         Map<String, String> params = new HashMap<String, String>();
-                        params.put("email", email);
+                        params.put("uname", email);
                         params.put("pwd", password);
                         return params;
 
@@ -204,4 +218,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
                     .show();
         }
     }
+
+    private boolean isSuccess(String feed) {
+
+        try {
+            JSONArray jsonArray = new JSONArray(feed);
+            JSONObject jsonObject = jsonArray.getJSONObject(0);
+            String id = jsonObject.optString("ID");
+
+            if (id.trim().isEmpty()) {
+                return false;
+            } else {
+                userId = id;
+                return true;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }

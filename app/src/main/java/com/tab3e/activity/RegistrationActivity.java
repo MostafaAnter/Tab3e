@@ -1,5 +1,6 @@
 package com.tab3e.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -20,6 +21,10 @@ import com.tab3e.R2;
 import com.tab3e.app.AppController;
 import com.tab3e.util.SweetDialogHelper;
 import com.tab3e.util.Util;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -166,10 +171,16 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnFo
                     @Override
                     public void onResponse(String response) {
                         sdh.dismissDialog();
-                        // parseFeed(response);
                         Log.d("response", response);
-                        //  startActivity(new Intent(SignInActivity.this, ClientHomeActivity.class));
-                        // finish();
+                        if (isSuccess(response)) {
+                            Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+                            intent.putExtra("email", userName);
+                            intent.putExtra("password", password);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            sdh.showErrorMessage("خطأ", "أسم موجود من قبل الرجاء إعادة المحاولة");
+                        }
                     }
                 }, new Response.ErrorListener() {
 
@@ -257,6 +268,24 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnFo
         }
         return true;
 
+    }
+
+    private boolean isSuccess(String feed) {
+
+        try {
+            JSONArray jsonArray = new JSONArray(feed);
+            JSONObject jsonObject = jsonArray.getJSONObject(0);
+            String status = jsonObject.optString("status");
+
+            if (status.equalsIgnoreCase("Failed") || status.trim().isEmpty()) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     private boolean checkPhoneNumber(String phoneNumer) {
