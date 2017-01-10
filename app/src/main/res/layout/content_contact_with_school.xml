@@ -198,7 +198,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:minHeight="?android:attr/listPreferredItemHeightLarge"
+                        android:minHeight="?android:attr/listPreferredItemHeight"
                         android:layout_marginLeft="@dimen/activity_horizontal_margin"
                         android:layout_marginRight="@dimen/activity_horizontal_margin"
                         android:layout_marginTop="@dimen/activity_vertical_margin"
@@ -318,7 +318,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/activity_horizontal_margin"
                         android:layout_marginRight="@dimen/activity_horizontal_margin"
-                        android:minHeight="?android:attr/listPreferredItemHeightLarge"
+                        android:minHeight="?android:attr/listPreferredItemHeight"
                         android:layout_marginTop="@dimen/activity_vertical_margin"
                         android:background="@drawable/border_shape_gray_square"
                         android:orientation="vertical">
@@ -337,7 +337,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_margin="2dp"
                                 android:contentDescription="@null"
-                                android:text="المدير العام/ "
+                                android:text="وكيل المدرسة/ "
                                 android:textColor="@color/text_red" />
 
                             <TextView
@@ -437,7 +437,7 @@
                         android:layout_marginLeft="@dimen/activity_horizontal_margin"
                         android:layout_marginRight="@dimen/activity_horizontal_margin"
                         android:layout_marginTop="@dimen/activity_vertical_margin"
-                        android:minHeight="?android:attr/listPreferredItemHeightLarge"
+                        android:minHeight="?android:attr/listPreferredItemHeight"
                         android:background="@drawable/border_shape_gray_square"
                         android:orientation="vertical">
 
@@ -455,7 +455,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_margin="2dp"
                                 android:contentDescription="@null"
-                                android:text="المدير العام/ "
+                                android:text="المرشد/ "
                                 android:textColor="@color/text_red" />
 
                             <TextView
@@ -554,7 +554,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/activity_horizontal_margin"
                         android:layout_marginRight="@dimen/activity_horizontal_margin"
-                        android:minHeight="?android:attr/listPreferredItemHeightLarge"
+                        android:minHeight="?android:attr/listPreferredItemHeight"
                         android:layout_marginTop="@dimen/activity_vertical_margin"
                         android:layout_marginBottom="@dimen/activity_vertical_margin"
                         android:background="@drawable/border_shape_gray_square"
@@ -574,7 +574,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_margin="2dp"
                                 android:contentDescription="@null"
-                                android:text="المدير العام/ "
+                                android:text="الأخصائي/ "
                                 android:textColor="@color/text_red" />
 
                             <TextView
