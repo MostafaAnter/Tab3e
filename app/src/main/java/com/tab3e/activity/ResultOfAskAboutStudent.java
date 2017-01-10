@@ -1,12 +1,15 @@
 package com.tab3e.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.TextView;
 
 import com.tab3e.R;
@@ -17,7 +20,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ResultOfAskAboutStudent extends AboutTab3e
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        View.OnClickListener{
 
     @BindView(R2.id.toolbar)Toolbar toolbar;
     @BindView(R2.id.nav_view)NavigationView navigationView;
@@ -39,6 +43,11 @@ public class ResultOfAskAboutStudent extends AboutTab3e
     @Nullable @BindView(R2.id.text15)TextView textView15;
     @Nullable @BindView(R2.id.text16)TextView textView16;
 
+    @Nullable @BindView(R2.id.card_view4)CardView cardView1;
+    @Nullable @BindView(R2.id.card_view5)CardView cardView2;
+    @Nullable @BindView(R2.id.card_view6)CardView cardView3;
+    @Nullable @BindView(R2.id.card_view7)CardView cardView4;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +67,12 @@ public class ResultOfAskAboutStudent extends AboutTab3e
 
         // change text font
         changeFont();
+
+        // set on click
+        cardView1.setOnClickListener(this);
+        cardView2.setOnClickListener(this);
+        cardView3.setOnClickListener(this);
+        cardView4.setOnClickListener(this);
     }
 
     @Override
@@ -87,5 +102,23 @@ public class ResultOfAskAboutStudent extends AboutTab3e
         Util.changeViewTypeFace(this, "fonts/DroidKufi-Regular.ttf", textView14);
         //Util.changeViewTypeFace(this, "fonts/DroidKufi-Regular.ttf", textView15);
         //Util.changeViewTypeFace(this, "fonts/DroidKufi-Regular.ttf", textView16);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.card_view4:
+                startActivity(new Intent(this, AbsentDoc.class));
+                break;
+            case R.id.card_view5:
+                startActivity(new Intent(this, InfractionDoc.class));
+                break;
+            case R.id.card_view6:
+                startActivity(new Intent(this, AskAboutTable.class));
+                break;
+            case R.id.card_view7:
+                startActivity(new Intent(this, StudentDetails.class));
+                break;
+        }
     }
 }
