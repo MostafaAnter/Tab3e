@@ -20,12 +20,16 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
+import com.google.gson.Gson;
 import com.tab3e.BuildConfig;
 import com.tab3e.R;
 import com.tab3e.R2;
 import com.tab3e.app.AppController;
 import com.tab3e.model.SpinnerModel;
+import com.tab3e.model.StudentData;
 import com.tab3e.parser.JsonParser;
+import com.tab3e.store.Tab3ePrefStore;
+import com.tab3e.util.Constants;
 import com.tab3e.util.SweetDialogHelper;
 import com.tab3e.util.Util;
 
@@ -64,6 +68,9 @@ public class ResultOfAskAboutStudent extends AboutTab3e
     @Nullable @BindView(R2.id.text15)TextView textView15;
     @Nullable @BindView(R2.id.text16)TextView textView16;
 
+    @Nullable @BindView(R2.id.text23)TextView textView23;
+    @Nullable @BindView(R2.id.text24)TextView textView24;
+
     @Nullable @BindView(R2.id.card_view4)CardView cardView1;
     @Nullable @BindView(R2.id.card_view5)CardView cardView2;
     @Nullable @BindView(R2.id.card_view6)CardView cardView3;
@@ -73,6 +80,8 @@ public class ResultOfAskAboutStudent extends AboutTab3e
 
     @Nullable @BindView(R2.id.progressBar1)ProgressBar progressBar;
     @Nullable @BindView(R2.id.body)View v;
+
+    private StudentData studentData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -181,7 +190,20 @@ public class ResultOfAskAboutStudent extends AboutTab3e
                     Intent intent = new Intent();
                     setResult(RESULT_OK, intent);
                     finish();
+                }else {
+                    try {
+                        JSONArray jsonArray = new JSONArray(response);
+                        JSONObject jsonObject = jsonArray.optJSONObject(0);
+                        Gson gson = new Gson();
+                        studentData = gson.fromJson(jsonObject.toString(), StudentData.class);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (studentData != null)
+                        bindData(studentData);
                 }
+
 
             }
         }, new Response.ErrorListener() {
@@ -213,5 +235,172 @@ public class ResultOfAskAboutStudent extends AboutTab3e
             return false;
         }
 
+    }
+
+    private void bindData(StudentData s){
+        textView2.setText(s.getName());
+        textView6.setText("رقم البطاقة: " + s.getId_card());
+        new Tab3ePrefStore(this).addPreference(Constants.STUDENT_ID, s.getID());
+        new Tab3ePrefStore(this).addPreference(Constants.SCHOOL_ID, s.getId_school());
+        getRow(s.getRow());
+        getSection(s.getSection());
+        getToatleAbsent(s.getID());
+        getToatleInferaction(s.getID());
+
+        switch (s.getLevel()){
+            case "primary":
+                textView3.setText("المرحلة: الأبتدائية");
+                break;
+            case "preparatory":
+                textView3.setText("المرحلة: المتوسطة");
+                break;
+            case "secondary":
+                textView3.setText("المرحلة: الثانوية");
+                break;
+        }
+
+    }
+
+    private void getRow(String row) {
+        /**
+         * this section for fetch country
+         */
+        String urlBrands = BuildConfig.GET_ROW_DATA + row;
+        // making fresh volley request and getting jsonstatus_request
+        StringRequest jsonReq = new StringRequest(Request.Method.GET,
+                urlBrands, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+                    JSONObject jsonObject = jsonArray.optJSONObject(0);
+                    String name = jsonObject.optString("name");
+                    textView4.setText(name);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d("response", "Error: " + error.getMessage());
+                new SweetDialogHelper(ResultOfAskAboutStudent.this).showErrorMessage("عفوا", "قم بإغلاق الصفحة واعادة فتحهامن جديد");
+            }
+        });
+
+        // Adding request to volley request queue
+        AppController.getInstance().addToRequestQueue(jsonReq);
+    }
+
+    private void getSection(String section) {
+        /**
+         * this section for fetch country
+         */
+        String urlBrands = BuildConfig.GET_SECTION + section;
+        // making fresh volley request and getting jsonstatus_request
+        StringRequest jsonReq = new StringRequest(Request.Method.GET,
+                urlBrands, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+                    JSONObject jsonObject = jsonArray.optJSONObject(0);
+                    String name = jsonObject.optString("name");
+                    textView5.setText("الشعبة: " + name);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d("response", "Error: " + error.getMessage());
+                new SweetDialogHelper(ResultOfAskAboutStudent.this).showErrorMessage("عفوا", "قم بإغلاق الصفحة واعادة فتحهامن جديد");
+            }
+        });
+
+        // Adding request to volley request queue
+        AppController.getInstance().addToRequestQueue(jsonReq);
+    }
+
+    private void getToatleAbsent(String studentID) {
+        /**
+         * this section for fetch country
+         */
+        String urlBrands = BuildConfig.GET_TOATLE_ABSENT + studentID;
+        // making fresh volley request and getting jsonstatus_request
+        StringRequest jsonReq = new StringRequest(Request.Method.GET,
+                urlBrands, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+                    JSONObject jsonObject = jsonArray.optJSONObject(0);
+                    String name = jsonObject.optString("total");
+                    textView24.setText(name);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d("response", "Error: " + error.getMessage());
+                new SweetDialogHelper(ResultOfAskAboutStudent.this).showErrorMessage("عفوا", "قم بإغلاق الصفحة واعادة فتحهامن جديد");
+            }
+        });
+
+        // Adding request to volley request queue
+        AppController.getInstance().addToRequestQueue(jsonReq);
+    }
+
+    private void getToatleInferaction(String studentID) {
+        /**
+         * this section for fetch country
+         */
+        String urlBrands = BuildConfig.GET_TOATLE_FRACTION + studentID;
+        // making fresh volley request and getting jsonstatus_request
+        StringRequest jsonReq = new StringRequest(Request.Method.GET,
+                urlBrands, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+                    JSONObject jsonObject = jsonArray.optJSONObject(0);
+                    String name = jsonObject.optString("total");
+                    textView23.setText(name);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                v.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.GONE);
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d("response", "Error: " + error.getMessage());
+                new SweetDialogHelper(ResultOfAskAboutStudent.this).showErrorMessage("عفوا", "قم بإغلاق الصفحة واعادة فتحهامن جديد");
+            }
+        });
+
+        // Adding request to volley request queue
+        AppController.getInstance().addToRequestQueue(jsonReq);
     }
 }
