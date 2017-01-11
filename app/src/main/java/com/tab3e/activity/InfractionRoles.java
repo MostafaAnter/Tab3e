@@ -1,6 +1,7 @@
 package com.tab3e.activity;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
 
 import com.tab3e.R;
 import com.tab3e.R2;
@@ -24,6 +26,10 @@ public class InfractionRoles extends AboutTab3e
 
     @BindView(R2.id.toolbar)Toolbar toolbar;
     @BindView(R2.id.nav_view)NavigationView navigationView;
+
+    @Nullable
+    @BindView(R2.id.progressBar1)
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,5 +1,6 @@
 package com.tab3e.activity;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,28 +9,54 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.StringRequest;
 import com.tab3e.R;
 import com.tab3e.R2;
+import com.tab3e.app.AppController;
 import com.tab3e.util.CustomTypefaceSpan;
+import com.tab3e.util.SweetDialogHelper;
 import com.tab3e.util.Util;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class AboutTab3e extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        View.OnClickListener{
 
     @BindView(R2.id.toolbar)Toolbar toolbar;
     @BindView(R2.id.nav_view)NavigationView navigationView;
+
+
+    @Nullable
+    @BindView(R2.id.card_view1)
+    CardView cardView1;
+
+
+    @Nullable @BindView(R2.id.progressBar1) ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +74,42 @@ public class AboutTab3e extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         changeFontOfNavigation();
+
+        cardView1.setOnClickListener(this);
+
+        if (AboutTab3e.this.getClass().getSimpleName().equalsIgnoreCase("AboutTab3e")) {
+            WebView wv1 = (WebView) findViewById(R.id.webview);
+            progressBar.setVisibility(View.GONE);
+
+            if (Util.isOnline(this)) {
+                progressBar.setVisibility(View.VISIBLE);
+                wv1.setWebViewClient(new MyBrowser());
+                wv1.getSettings().setLoadsImagesAutomatically(true);
+                wv1.getSettings().setJavaScriptEnabled(true);
+                wv1.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+                wv1.loadUrl("http://followson.com/papers.php?id=1");
+            } else {
+                // show error message
+                new SweetDialogHelper(this).showErrorMessage(getString(R.string.error_string),
+                        getString(R.string.no_internet));
+            }
+        }
     }
+
+    private class MyBrowser extends WebViewClient {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+            progressBar.setVisibility(View.GONE);
+        }
+    }
+
 
     public void setToolbar(){
         Util.manipulateToolbar(this, toolbar, 0, null, true);
@@ -114,6 +176,7 @@ public class AboutTab3e extends AppCompatActivity
         } else if (id == R.id.infection_list) {
 
         } else if (id == R.id.about_tab3e) {
+            startActivity(new Intent(AboutTab3e.this, AboutTab3e.class));
 
         } else if (id == R.id.log_out) {
 
@@ -122,5 +185,22 @@ public class AboutTab3e extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        try {
+            Intent i = new Intent(Intent.ACTION_SEND);
+            i.setType("text/plain");
+            i.putExtra(Intent.EXTRA_SUBJECT, "Tab3e");
+            String sAux = "\nLet me recommend you this application\n\n";
+            sAux = sAux + "https://play.google.com/store/apps/details?id=com.tab3e \n\n";
+            i.putExtra(Intent.EXTRA_TEXT, sAux);
+            startActivity(Intent.createChooser(i, "choose one"));
+        } catch (Exception e) {
+            //e.toString();
+        }
+
     }
 }

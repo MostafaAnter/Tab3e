@@ -1,11 +1,13 @@
 package com.tab3e.activity;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.widget.ProgressBar;
 
 import com.tab3e.R;
 import com.tab3e.R2;
@@ -18,6 +20,10 @@ public class AbsentRoles extends AboutTab3e
 
     @BindView(R2.id.toolbar)Toolbar toolbar;
     @BindView(R2.id.nav_view)NavigationView navigationView;
+
+    @Nullable
+    @BindView(R2.id.progressBar1)
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
