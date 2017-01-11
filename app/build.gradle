@@ -27,6 +27,8 @@ android {
         it.buildConfigField 'String', 'GET_SECTION', '"http://followson.com/rest/getSection?id="'
         it.buildConfigField 'String', 'GET_TOATLE_ABSENT', '"http://followson.com/rest/absencesTotal?id="'
         it.buildConfigField 'String', 'GET_TOATLE_FRACTION', '"http://followson.com/rest/infractionsTotal?id="'
+        it.buildConfigField 'String', 'ABSENT_DETAILS', '"http://followson.com/rest/showAbsences?school="'
+        it.buildConfigField 'String', 'INFRACTION_DETAILS', '"http://followson.com/rest/showInfractions?school="'
     }
 }
 

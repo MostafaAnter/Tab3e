@@ -13,14 +13,32 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.StringRequest;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.tab3e.BuildConfig;
 import com.tab3e.R;
 import com.tab3e.R2;
 import com.tab3e.adapter.AbsentDocAdapter;
+import com.tab3e.app.AppController;
 import com.tab3e.model.AbsentDocItem;
+import com.tab3e.store.Tab3ePrefStore;
+import com.tab3e.util.Constants;
+import com.tab3e.util.SweetDialogHelper;
 import com.tab3e.util.Util;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,6 +90,10 @@ public class AbsentDoc extends AboutTab3e
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
 
+    @Nullable
+    @BindView(R2.id.progressBar1)
+    ProgressBar progressBar;
+
 
     // for recycler view
     private static final String TAG = "ProviderChatsFragment";
@@ -122,6 +144,9 @@ public class AbsentDoc extends AboutTab3e
 
         // set recyclerView
         setRecyclerView(savedInstanceState);
+
+        String totalAbsent = new Tab3ePrefStore(this).getPreferenceValue(Constants.TOTAL_ABSENT_DAY);
+        textView2.setText("إجمالي " + totalAbsent + " يوم");
     }
 
     @Override
@@ -191,13 +216,53 @@ public class AbsentDoc extends AboutTab3e
     }
 
     private void addFakeItems(){
-        AbsentDocItem absentDocItem = new AbsentDocItem("", "", "","", "","");
-        for (int i = 0; i <10 ; i++) {
-            mDataset.add(absentDocItem);
+        /**
+         * this section for fetch country
+         */
+        String urlBrands = BuildConfig.ABSENT_DETAILS + new Tab3ePrefStore(this).getPreferenceValue(Constants.SCHOOL_ID)
+                + "&id=" + new Tab3ePrefStore(this).getPreferenceValue(Constants.STUDENT_ID);
+        // making fresh volley request and getting jsonstatus_request
+        StringRequest jsonReq = new StringRequest(Request.Method.GET,
+                urlBrands, new Response.Listener<String>() {
 
-        }
+            @Override
+            public void onResponse(String response) {
 
-        mAdapter.notifyDataSetChanged();
+
+                Type listType = new TypeToken<ArrayList<AbsentDocItem>>(){}.getType();
+                List<AbsentDocItem> yourClassList = new Gson().fromJson(response, listType);
+
+                mDataset.addAll(yourClassList);
+                mAdapter.notifyDataSetChanged();
+
+                progressBar.setVisibility(View.GONE);
+                if (mDataset.size()<1){
+                    noDataView.setVisibility(View.VISIBLE);
+                }else {
+                    noDataView.setVisibility(View.GONE);
+                    int withCount = 0;
+                    for (AbsentDocItem absentDocItem: mDataset
+                         ) {
+                        if (absentDocItem.getTypewithe().equalsIgnoreCase("with"))
+                            withCount++;
+                    }
+                    textView5.setText(withCount + "");
+                    textView3.setText(mDataset.size()-withCount + "");
+
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d("response", "Error: " + error.getMessage());
+                new SweetDialogHelper(AbsentDoc.this).showErrorMessage("عفوا", "قم بإغلاق الصفحة واعادة فتحهامن جديد");
+            }
+        });
+
+        // Adding request to volley request queue
+        AppController.getInstance().addToRequestQueue(jsonReq);
 
     }
 }

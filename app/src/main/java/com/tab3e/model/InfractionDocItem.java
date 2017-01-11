@@ -5,67 +5,87 @@ package com.tab3e.model;
  */
 
 public class InfractionDocItem {
-    private String dayName;
-    private String infractionDegree;
-    private String dateMeladi;
-    private String dateHegri;
-    private String time;
-    private String cause;
+    private String ID;
+    private String day;
+    private String m_date;
+    private String h_date;
+    private String hour1;
+    private String hour2;
+    private String typeabsent;
+    private String absent;
 
-    public InfractionDocItem(String dayName, String infractionDegree, String dateMeladi, String dateHegri, String time, String cause) {
-        this.dayName = dayName;
-        this.infractionDegree = infractionDegree;
-        this.dateMeladi = dateMeladi;
-        this.dateHegri = dateHegri;
-        this.time = time;
-        this.cause = cause;
+    public InfractionDocItem(String ID, String day, String m_date, String h_date, String hour1, String hour2, String typeabsent, String absent) {
+        this.ID = ID;
+        this.day = day;
+        this.m_date = m_date;
+        this.h_date = h_date;
+        this.hour1 = hour1;
+        this.hour2 = hour2;
+        this.typeabsent = typeabsent;
+        this.absent = absent;
     }
 
-    public String getDayName() {
-        return dayName;
+    public String getID() {
+        return ID;
     }
 
-    public void setDayName(String dayName) {
-        this.dayName = dayName;
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
-    public String getInfractionDegree() {
-        return infractionDegree;
+    public String getDay() {
+        return day;
     }
 
-    public void setInfractionDegree(String infractionDegree) {
-        this.infractionDegree = infractionDegree;
+    public void setDay(String day) {
+        this.day = day;
     }
 
-    public String getDateMeladi() {
-        return dateMeladi;
+    public String getM_date() {
+        return m_date;
     }
 
-    public void setDateMeladi(String dateMeladi) {
-        this.dateMeladi = dateMeladi;
+    public void setM_date(String m_date) {
+        this.m_date = m_date;
     }
 
-    public String getDateHegri() {
-        return dateHegri;
+    public String getH_date() {
+        return h_date;
     }
 
-    public void setDateHegri(String dateHegri) {
-        this.dateHegri = dateHegri;
+    public void setH_date(String h_date) {
+        this.h_date = h_date;
     }
 
-    public String getTime() {
-        return time;
+    public String getHour1() {
+        return hour1;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setHour1(String hour1) {
+        this.hour1 = hour1;
     }
 
-    public String getCause() {
-        return cause;
+    public String getHour2() {
+        return hour2;
     }
 
-    public void setCause(String cause) {
-        this.cause = cause;
+    public void setHour2(String hour2) {
+        this.hour2 = hour2;
+    }
+
+    public String getTypeabsent() {
+        return typeabsent;
+    }
+
+    public void setTypeabsent(String typeabsent) {
+        this.typeabsent = typeabsent;
+    }
+
+    public String getAbsent() {
+        return absent;
+    }
+
+    public void setAbsent(String absent) {
+        this.absent = absent;
     }
 }

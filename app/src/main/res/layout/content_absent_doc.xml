@@ -85,7 +85,7 @@
                             android:background="@color/button_green_dark"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="إجمالى 30 يوم"
+                            android:text=""
                             android:textColor="@color/colorPrimary"
                             tools:ignore="RtlCompat" />
 
@@ -110,7 +110,7 @@
                                 android:layout_height="30dp"
                                 android:layout_gravity="center"
                                 android:gravity="center"
-                                android:text="33"
+                                android:text="0"
                                 android:textColor="@color/text_red" />
 
                             <View
@@ -146,7 +146,7 @@
                                 android:layout_height="30dp"
                                 android:layout_gravity="center"
                                 android:gravity="center"
-                                android:text="33"
+                                android:text="0"
                                 android:textColor="@color/text_red" />
 
                             <View
@@ -212,6 +212,14 @@
                         android:text="لاتوجد نتائج"
                         android:textStyle="bold" />
                 </LinearLayout>
+
+                <ProgressBar
+                    android:id="@+id/progressBar1"
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+
 
             </FrameLayout>
 

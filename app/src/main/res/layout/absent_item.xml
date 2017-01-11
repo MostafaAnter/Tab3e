@@ -24,13 +24,14 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/text1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.8"
                     android:background="@color/button_green_dark"
                     android:gravity="center_horizontal"
                     android:paddingTop="8dp"
-                    android:text="الأربعاء"
+                    android:text=""
                     android:textColor="@color/colorPrimary" />
 
                 <LinearLayout
@@ -48,12 +49,13 @@
                         android:src="@drawable/ic_abs_date_icon" />
 
                     <TextView
+                        android:id="@+id/text2"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center_horizontal"
                         android:paddingTop="8dp"
                         android:textSize="10sp"
-                        android:text="21/12/2016م"
+                        android:text=""
                         android:textColor="@color/colorPrimary" />
                 </LinearLayout>
 
@@ -78,12 +80,13 @@
                         android:src="@drawable/ic_abs_date_icon" />
 
                     <TextView
+                        android:id="@+id/text3"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center_horizontal"
                         android:textSize="10sp"
                         android:paddingTop="8dp"
-                        android:text="21/12/2016م"
+                        android:text=""
                         android:textColor="@color/colorPrimary" />
 
                 </LinearLayout>
@@ -105,12 +108,13 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/text4"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.8"
                         android:gravity="center_horizontal"
                         android:paddingTop="8dp"
-                        android:text="جزئي"
+                        android:text=""
                         android:textColor="@color/text_red" />
 
                     <LinearLayout
@@ -120,11 +124,12 @@
                         android:gravity="center_horizontal">
 
                         <TextView
+                            android:id="@+id/text5"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_horizontal"
                             android:paddingTop="8dp"
-                            android:text="بدون عذر"
+                            android:text=""
                             android:textColor="@color/text_red" />
                     </LinearLayout>
 
@@ -143,11 +148,12 @@
                             android:src="@drawable/ic_abs_time" />
 
                         <TextView
+                            android:id="@+id/text6"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_horizontal"
                             android:paddingTop="8dp"
-                            android:text="am 30:80"
+                            android:text=""
                             android:textColor="@color/secondTextGray" />
 
                     </LinearLayout>

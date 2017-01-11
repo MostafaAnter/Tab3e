@@ -6,12 +6,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.tab3e.R;
+import com.tab3e.R2;
 import com.tab3e.model.AbsentDocItem;
 
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -29,6 +32,36 @@ public class AbsentDocAdapter extends RecyclerView.Adapter<AbsentDocAdapter.View
      */
     public  class ViewHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R2.id.text1)TextView textView1;
+        @BindView(R2.id.text2)TextView textView2;
+        @BindView(R2.id.text3)TextView textView3;
+        @BindView(R2.id.text4)TextView textView4;
+        @BindView(R2.id.text5)TextView textView5;
+        @BindView(R2.id.text6)TextView textView6;
+
+        public TextView getTextView1() {
+            return textView1;
+        }
+
+        public TextView getTextView2() {
+            return textView2;
+        }
+
+        public TextView getTextView3() {
+            return textView3;
+        }
+
+        public TextView getTextView4() {
+            return textView4;
+        }
+
+        public TextView getTextView5() {
+            return textView5;
+        }
+
+        public TextView getTextView6() {
+            return textView6;
+        }
 
         public ViewHolder(View v) {
             super(v);
@@ -70,6 +103,46 @@ public class AbsentDocAdapter extends RecyclerView.Adapter<AbsentDocAdapter.View
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
         Log.d(TAG, "Element " + position + " set.");
+
+        switch (mDataSet.get(position).getDay()){
+            case "sunday":
+                viewHolder.getTextView1().setText("الأحد");
+                break;
+            case "monday":
+                viewHolder.getTextView1().setText("الأثنين");
+                break;
+            case "tuesday":
+                viewHolder.getTextView1().setText("الثلاثاء");
+                break;
+            case "wednesday":
+                viewHolder.getTextView1().setText("الأربعاء");
+                break;
+            case "thursday":
+                viewHolder.getTextView1().setText("الخميس");
+                break;
+        }
+        viewHolder.getTextView2().setText(mDataSet.get(position).getM_date() + "م");
+        viewHolder.getTextView3().setText(mDataSet.get(position).getH_date() + "ه");
+        switch (mDataSet.get(position).getTypeabsent()){
+            case "small":
+                viewHolder.getTextView4().setText("جزئي");
+                break;
+            case "all":
+                viewHolder.getTextView4().setText("كلي");
+                break;
+        }
+
+        switch (mDataSet.get(position).getTypewithe()){
+            case "with":
+                viewHolder.getTextView5().setText("بعذر");
+                break;
+            case "without":
+                viewHolder.getTextView5().setText("بدون عذر");
+                break;
+        }
+
+        viewHolder.getTextView6().setText(mDataSet.get(position).getHour1() +
+        " : " + mDataSet.get(position).getHour2());
 
         // Get element from your dataset at this position and replace the contents of the view
         // with that element
