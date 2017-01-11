@@ -25,9 +25,7 @@ import com.tab3e.BuildConfig;
 import com.tab3e.R;
 import com.tab3e.R2;
 import com.tab3e.app.AppController;
-import com.tab3e.model.SpinnerModel;
 import com.tab3e.model.StudentData;
-import com.tab3e.parser.JsonParser;
 import com.tab3e.store.Tab3ePrefStore;
 import com.tab3e.util.Constants;
 import com.tab3e.util.SweetDialogHelper;
@@ -39,47 +37,98 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ResultOfAskAboutStudent extends AboutTab3e
         implements NavigationView.OnNavigationItemSelectedListener,
-        View.OnClickListener{
+        View.OnClickListener {
 
-    @BindView(R2.id.toolbar)Toolbar toolbar;
-    @BindView(R2.id.nav_view)NavigationView navigationView;
+    @BindView(R2.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R2.id.nav_view)
+    NavigationView navigationView;
 
-    @Nullable @BindView(R2.id.text1)TextView textView1;
-    @Nullable @BindView(R2.id.text2)TextView textView2;
-    @Nullable @BindView(R2.id.text3)TextView textView3;
-    @Nullable @BindView(R2.id.text4)TextView textView4;
-    @Nullable @BindView(R2.id.text5)TextView textView5;
-    @Nullable @BindView(R2.id.text6)TextView textView6;
-    @Nullable @BindView(R2.id.text7)TextView textView7;
-    @Nullable @BindView(R2.id.text8)TextView textView8;
-    @Nullable @BindView(R2.id.text9)TextView textView9;
-    @Nullable @BindView(R2.id.text10)TextView textView10;
-    @Nullable @BindView(R2.id.text11)TextView textView11;
-    @Nullable @BindView(R2.id.text12)TextView textView12;
-    @Nullable @BindView(R2.id.text13)TextView textView13;
-    @Nullable @BindView(R2.id.text14)TextView textView14;
-    @Nullable @BindView(R2.id.text15)TextView textView15;
-    @Nullable @BindView(R2.id.text16)TextView textView16;
+    @Nullable
+    @BindView(R2.id.text1)
+    TextView textView1;
+    @Nullable
+    @BindView(R2.id.text2)
+    TextView textView2;
+    @Nullable
+    @BindView(R2.id.text3)
+    TextView textView3;
+    @Nullable
+    @BindView(R2.id.text4)
+    TextView textView4;
+    @Nullable
+    @BindView(R2.id.text5)
+    TextView textView5;
+    @Nullable
+    @BindView(R2.id.text6)
+    TextView textView6;
+    @Nullable
+    @BindView(R2.id.text7)
+    TextView textView7;
+    @Nullable
+    @BindView(R2.id.text8)
+    TextView textView8;
+    @Nullable
+    @BindView(R2.id.text9)
+    TextView textView9;
+    @Nullable
+    @BindView(R2.id.text10)
+    TextView textView10;
+    @Nullable
+    @BindView(R2.id.text11)
+    TextView textView11;
+    @Nullable
+    @BindView(R2.id.text12)
+    TextView textView12;
+    @Nullable
+    @BindView(R2.id.text13)
+    TextView textView13;
+    @Nullable
+    @BindView(R2.id.text14)
+    TextView textView14;
+    @Nullable
+    @BindView(R2.id.text15)
+    TextView textView15;
+    @Nullable
+    @BindView(R2.id.text16)
+    TextView textView16;
 
-    @Nullable @BindView(R2.id.text23)TextView textView23;
-    @Nullable @BindView(R2.id.text24)TextView textView24;
+    @Nullable
+    @BindView(R2.id.text23)
+    TextView textView23;
+    @Nullable
+    @BindView(R2.id.text24)
+    TextView textView24;
 
-    @Nullable @BindView(R2.id.card_view4)CardView cardView1;
-    @Nullable @BindView(R2.id.card_view5)CardView cardView2;
-    @Nullable @BindView(R2.id.card_view6)CardView cardView3;
-    @Nullable @BindView(R2.id.card_view7)CardView cardView4;
+    @Nullable
+    @BindView(R2.id.card_view4)
+    CardView cardView1;
+    @Nullable
+    @BindView(R2.id.card_view5)
+    CardView cardView2;
+    @Nullable
+    @BindView(R2.id.card_view6)
+    CardView cardView3;
+    @Nullable
+    @BindView(R2.id.card_view7)
+    CardView cardView4;
 
-    @Nullable @BindView(R2.id.contact)LinearLayout contact;
+    @Nullable
+    @BindView(R2.id.contact)
+    LinearLayout contact;
 
-    @Nullable @BindView(R2.id.progressBar1)ProgressBar progressBar;
-    @Nullable @BindView(R2.id.body)View v;
+    @Nullable
+    @BindView(R2.id.progressBar1)
+    ProgressBar progressBar;
+    @Nullable
+    @BindView(R2.id.body)
+    View v;
 
     private StudentData studentData;
 
@@ -126,7 +175,7 @@ public class ResultOfAskAboutStudent extends AboutTab3e
         }
     }
 
-    private void changeFont(){
+    private void changeFont() {
         Util.changeViewTypeFace(this, "fonts/DroidKufi-Regular.ttf", textView1);
         Util.changeViewTypeFace(this, "fonts/DroidKufi-Regular.ttf", textView2);
         Util.changeViewTypeFace(this, "fonts/DroidKufi-Regular.ttf", textView3);
@@ -147,7 +196,7 @@ public class ResultOfAskAboutStudent extends AboutTab3e
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.card_view4:
                 startActivity(new Intent(this, AbsentDoc.class));
                 break;
@@ -173,12 +222,12 @@ public class ResultOfAskAboutStudent extends AboutTab3e
         String name = getIntent()
                 .getExtras().getString("name", "");
         try {
-            name = URLEncoder.encode(name,"UTF-8");
+            name = URLEncoder.encode(name, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         String urlBrands = BuildConfig.GET_STUDENT_DATA + getIntent().getStringExtra("sID")
-                 + "&id_card=" + getIntent().getExtras().getString("stID", "") + "&name=" + name;
+                + "&id_card=" + getIntent().getExtras().getString("stID", "") + "&name=" + name;
         // making fresh volley request and getting jsonstatus_request
         StringRequest jsonReq = new StringRequest(Request.Method.GET,
                 urlBrands, new Response.Listener<String>() {
@@ -186,11 +235,11 @@ public class ResultOfAskAboutStudent extends AboutTab3e
             @Override
             public void onResponse(String response) {
                 Log.d("response", response);
-                if (response.trim().isEmpty() || statusFailed(response)){
+                if (response.trim().isEmpty() || statusFailed(response)) {
                     Intent intent = new Intent();
                     setResult(RESULT_OK, intent);
                     finish();
-                }else {
+                } else {
                     try {
                         JSONArray jsonArray = new JSONArray(response);
                         JSONObject jsonObject = jsonArray.optJSONObject(0);
@@ -221,7 +270,7 @@ public class ResultOfAskAboutStudent extends AboutTab3e
         AppController.getInstance().addToRequestQueue(jsonReq);
     }
 
-    private boolean statusFailed(String feed){
+    private boolean statusFailed(String feed) {
         JSONArray jsonArray = null;
         try {
             jsonArray = new JSONArray(feed);
@@ -237,7 +286,7 @@ public class ResultOfAskAboutStudent extends AboutTab3e
 
     }
 
-    private void bindData(StudentData s){
+    private void bindData(StudentData s) {
         textView2.setText(s.getName());
         textView6.setText("رقم البطاقة: " + s.getId_card());
         new Tab3ePrefStore(this).addPreference(Constants.STUDENT_ID, s.getID());
@@ -247,7 +296,7 @@ public class ResultOfAskAboutStudent extends AboutTab3e
         getToatleAbsent(s.getID());
         getToatleInferaction(s.getID());
 
-        switch (s.getLevel()){
+        switch (s.getLevel()) {
             case "primary":
                 textView3.setText("المرحلة: الأبتدائية");
                 break;
