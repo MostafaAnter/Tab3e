@@ -30,6 +30,7 @@ import com.tab3e.adapter.SpinnerCustomAdapter;
 import com.tab3e.app.AppController;
 import com.tab3e.model.SpinnerModel;
 import com.tab3e.parser.JsonParser;
+import com.tab3e.util.SweetDialogHelper;
 import com.tab3e.util.Util;
 
 import java.util.ArrayList;
@@ -37,28 +38,51 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class AskAboutStudent extends AboutTab3e
         implements NavigationView.OnNavigationItemSelectedListener,
         View.OnFocusChangeListener,
         View.OnClickListener {
 
-    @BindView(R2.id.toolbar)Toolbar toolbar;
-    @BindView(R2.id.nav_view)NavigationView navigationView;@Nullable
+    @BindView(R2.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R2.id.nav_view)
+    NavigationView navigationView;
+    @Nullable
 
-    @BindView(R2.id.text1)TextView textView1;@Nullable
-    @BindView(R2.id.text2)TextView textView2;@Nullable
-    @BindView(R2.id.text3)TextView textView3;@Nullable
+    @BindView(R2.id.text1)
+    TextView textView1;
+    @Nullable
+    @BindView(R2.id.text2)
+    TextView textView2;
+    @Nullable
+    @BindView(R2.id.text3)
+    TextView textView3;
+    @Nullable
 
-    @BindView(R2.id.editText1)EditText editText1;@Nullable
-    @BindView(R2.id.editText2)EditText editText2;@Nullable
+    @BindView(R2.id.editText1)
+    EditText editText1;
+    @Nullable
+    @BindView(R2.id.editText2)
+    EditText editText2;
+    @Nullable
 
-    @BindView(R2.id.linear1)LinearLayout linear1;@Nullable
-    @BindView(R2.id.linear2)LinearLayout linear2;@Nullable
+    @BindView(R2.id.linear1)
+    LinearLayout linear1;
+    @Nullable
+    @BindView(R2.id.linear2)
+    LinearLayout linear2;
+    @Nullable
 
-    @BindView(R2.id.card_view1)CardView cardView1;@Nullable
+    @BindView(R2.id.card_view1)
+    CardView cardView1;
+    @Nullable
 
-    @BindView(R2.id.spinner1)Spinner spinner1;
+    @BindView(R2.id.spinner1)
+    Spinner spinner1;
+
+    private String schoolID, studentID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +119,16 @@ public class AskAboutStudent extends AboutTab3e
         List<SpinnerModel> models = new ArrayList<>();
         models.add(new SpinnerModel("المدرسة", ""));
         populateSpinner1(models);
+
+        if (Util.isOnline(this)) {
+            getSchools();
+        } else {
+            // show error message
+            new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("ناسف...")
+                    .setContentText("هناك مشكله بشبكة الانترنت حاول مره اخرى")
+                    .show();
+        }
     }
 
     @Override
@@ -109,18 +143,23 @@ public class AskAboutStudent extends AboutTab3e
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.card_view1:
-                startActivity(new Intent(this, ResultOfAskAboutStudent.class));
+                if (checkValidation()) {
+                    Intent intent = new Intent(this, ResultOfAskAboutStudent.class);
+                    intent.putExtra("sID", schoolID);
+                    intent.putExtra("stID", studentID);
+                    startActivityForResult(intent, 101);
+                }
                 break;
         }
     }
 
     @Override
     public void onFocusChange(View view, boolean b) {
-        if (view instanceof EditText){
-            if (b){
-                switch (view.getId()){
+        if (view instanceof EditText) {
+            if (b) {
+                switch (view.getId()) {
                     case R.id.editText1:
                         linear1.setBackgroundResource(R.drawable.border_shape_blue);
                         break;
@@ -128,8 +167,8 @@ public class AskAboutStudent extends AboutTab3e
                         linear2.setBackgroundResource(R.drawable.border_shape_blue);
                         break;
                 }
-            }else {
-                switch (view.getId()){
+            } else {
+                switch (view.getId()) {
                     case R.id.editText1:
                         linear1.setBackgroundResource(R.drawable.border_shape_gray);
                         break;
@@ -156,9 +195,9 @@ public class AskAboutStudent extends AboutTab3e
                 SpinnerModel selectedItem = (SpinnerModel) parent.getItemAtPosition(position);
                 if (position > 0) {
                     // doSome things
-//                    countryId = selectedItem.getId();
-//                    cityId = null;
-//                    getCities(countryId);
+                    schoolID = selectedItem.getId();
+                } else {
+                    schoolID = null;
                 }
             }
 
@@ -171,7 +210,21 @@ public class AskAboutStudent extends AboutTab3e
 
     }
 
-    private void getSchools(){
+    private boolean checkValidation() {
+        studentID = editText2.getText().toString().trim();
+        if (schoolID == null || schoolID.trim().isEmpty()) {
+            new SweetDialogHelper(this).showErrorMessage("خطأ", "الرجاء أختيار مدرسة");
+            return false;
+        }
+        if (studentID == null || studentID.trim().isEmpty()) {
+            new SweetDialogHelper(this).showErrorMessage("خطأ", "الرجاء أدخال رقم بطاقة الطالب");
+            return false;
+        }
+
+        return true;
+    }
+
+    private void getSchools() {
         /**
          * this section for fetch country
          */
@@ -183,8 +236,11 @@ public class AskAboutStudent extends AboutTab3e
             @Override
             public void onResponse(String response) {
                 List<SpinnerModel> spinnerItemList = JsonParser.parseSpinnerFeed(response);
-                if (spinnerItemList != null) {
+                if (spinnerItemList != null && spinnerItemList.size() > 0) {
+                    spinnerItemList.add(0, new SpinnerModel("المدرسة", ""));
                     populateSpinner1(spinnerItemList);
+                } else {
+                    new SweetDialogHelper(AskAboutStudent.this).showErrorMessage("عفوا", "قم بإغلاق الصفحة واعادة فتحهامن جديد");
                 }
                 Log.d("response", response.toString());
 
@@ -194,11 +250,23 @@ public class AskAboutStudent extends AboutTab3e
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d("response", "Error: " + error.getMessage());
+                new SweetDialogHelper(AskAboutStudent.this).showErrorMessage("عفوا", "قم بإغلاق الصفحة واعادة فتحهامن جديد");
             }
         });
 
         // Adding request to volley request queue
         AppController.getInstance().addToRequestQueue(jsonReq);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if(requestCode == 101){
+            if (resultCode == RESULT_OK){
+                //---get the result using getIntExtra()---
+                new SweetDialogHelper(AskAboutStudent.this).showWarningMessage("عفوا", "لاتوجد نتأج تأكد من بيانات الطالب", "موافق");
+            }
+        }
     }
 
 }
