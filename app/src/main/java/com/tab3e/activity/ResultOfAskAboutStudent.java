@@ -9,13 +9,27 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.StringRequest;
+import com.tab3e.BuildConfig;
 import com.tab3e.R;
 import com.tab3e.R2;
+import com.tab3e.app.AppController;
+import com.tab3e.model.SpinnerModel;
+import com.tab3e.parser.JsonParser;
+import com.tab3e.util.SweetDialogHelper;
 import com.tab3e.util.Util;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,6 +65,9 @@ public class ResultOfAskAboutStudent extends AboutTab3e
 
     @Nullable @BindView(R2.id.contact)LinearLayout contact;
 
+    @Nullable @BindView(R2.id.progressBar1)ProgressBar progressBar;
+    @Nullable @BindView(R2.id.body)View v;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +85,8 @@ public class ResultOfAskAboutStudent extends AboutTab3e
         navigationView.setNavigationItemSelectedListener(this);
         changeFontOfNavigation();
 
+        v.setVisibility(View.GONE);
+
         // change text font
         changeFont();
 
@@ -78,6 +97,8 @@ public class ResultOfAskAboutStudent extends AboutTab3e
         cardView4.setOnClickListener(this);
 
         contact.setOnClickListener(this);
+
+        getStudentData();
     }
 
     @Override
@@ -128,5 +149,40 @@ public class ResultOfAskAboutStudent extends AboutTab3e
                 startActivity(new Intent(this, ContactWithSchool.class));
                 break;
         }
+    }
+
+    private void getStudentData() {
+        /**
+         * this section for fetch country
+         */
+        String urlBrands = BuildConfig.GET_STUDENT_DATA + getIntent().getStringExtra("sID")
+                 + "&id=" + getIntent().getStringExtra("stID");
+        // making fresh volley request and getting jsonstatus_request
+        StringRequest jsonReq = new StringRequest(Request.Method.GET,
+                urlBrands, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d("response", response.toString());
+                if (response.trim().isEmpty()){
+                    Intent intent = new Intent();
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d("response", "Error: " + error.getMessage());
+                Intent intent = new Intent();
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
+
+        // Adding request to volley request queue
+        AppController.getInstance().addToRequestQueue(jsonReq);
     }
 }

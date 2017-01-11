@@ -22,6 +22,7 @@ android {
         it.buildConfigField 'String', 'LOGIN_URL', '"http://followson.com/rest/logFather"'
         it.buildConfigField 'String', 'SHOW_ALL_SCHOL_URL', '"http://followson.com/rest/getSchool"'
         it.buildConfigField 'String', 'REGISTER_PARENT_URL', '"http://followson.com/rest/regFather"'
+        it.buildConfigField 'String', 'GET_STUDENT_DATA', '"http://followson.com/rest/showProfile?school="'
     }
 }
 
