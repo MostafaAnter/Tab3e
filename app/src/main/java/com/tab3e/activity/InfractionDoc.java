@@ -1,5 +1,6 @@
 package com.tab3e.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -232,6 +233,6 @@ public class InfractionDoc extends AboutTab3e
 
     @Override
     public void onClick(View view) {
-
+        startActivity(new Intent(this, InfractionRoles.class));
     }
 }
