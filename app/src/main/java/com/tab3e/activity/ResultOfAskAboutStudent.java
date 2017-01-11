@@ -397,6 +397,7 @@ public class ResultOfAskAboutStudent extends AboutTab3e
                     JSONObject jsonObject = jsonArray.optJSONObject(0);
                     String name = jsonObject.optString("total");
                     textView24.setText(name);
+                    new Tab3ePrefStore(ResultOfAskAboutStudent.this).addPreference(Constants.TOTAL_ABSENT_DAY, name);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
