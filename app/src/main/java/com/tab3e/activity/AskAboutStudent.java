@@ -82,7 +82,7 @@ public class AskAboutStudent extends AboutTab3e
     @BindView(R2.id.spinner1)
     Spinner spinner1;
 
-    private String schoolID, studentID;
+    private String schoolID, studentID, name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,6 +149,7 @@ public class AskAboutStudent extends AboutTab3e
                     Intent intent = new Intent(this, ResultOfAskAboutStudent.class);
                     intent.putExtra("sID", schoolID);
                     intent.putExtra("stID", studentID);
+                    intent.putExtra("name", name);
                     startActivityForResult(intent, 101);
                 }
                 break;
@@ -211,14 +212,19 @@ public class AskAboutStudent extends AboutTab3e
     }
 
     private boolean checkValidation() {
+        name = editText1.getText().toString().trim();
         studentID = editText2.getText().toString().trim();
+
         if (schoolID == null || schoolID.trim().isEmpty()) {
             new SweetDialogHelper(this).showErrorMessage("خطأ", "الرجاء أختيار مدرسة");
             return false;
         }
         if (studentID == null || studentID.trim().isEmpty()) {
-            new SweetDialogHelper(this).showErrorMessage("خطأ", "الرجاء أدخال رقم بطاقة الطالب");
-            return false;
+
+            if (name == null || name.trim().isEmpty()) {
+                new SweetDialogHelper(this).showErrorMessage("خطأ", "الرجاء أدخال رقم بطاقة الطالب");
+                return false;
+            }
         }
 
         return true;

@@ -29,6 +29,12 @@ import com.tab3e.parser.JsonParser;
 import com.tab3e.util.SweetDialogHelper;
 import com.tab3e.util.Util;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 import butterknife.BindView;
@@ -155,16 +161,23 @@ public class ResultOfAskAboutStudent extends AboutTab3e
         /**
          * this section for fetch country
          */
+        String name = getIntent()
+                .getExtras().getString("name", "");
+        try {
+            name = URLEncoder.encode(name,"UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         String urlBrands = BuildConfig.GET_STUDENT_DATA + getIntent().getStringExtra("sID")
-                 + "&id=" + getIntent().getStringExtra("stID");
+                 + "&id_card=" + getIntent().getExtras().getString("stID", "") + "&name=" + name;
         // making fresh volley request and getting jsonstatus_request
         StringRequest jsonReq = new StringRequest(Request.Method.GET,
                 urlBrands, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
-                Log.d("response", response.toString());
-                if (response.trim().isEmpty()){
+                Log.d("response", response);
+                if (response.trim().isEmpty() || statusFailed(response)){
                     Intent intent = new Intent();
                     setResult(RESULT_OK, intent);
                     finish();
@@ -184,5 +197,21 @@ public class ResultOfAskAboutStudent extends AboutTab3e
 
         // Adding request to volley request queue
         AppController.getInstance().addToRequestQueue(jsonReq);
+    }
+
+    private boolean statusFailed(String feed){
+        JSONArray jsonArray = null;
+        try {
+            jsonArray = new JSONArray(feed);
+            JSONObject jsonObject = jsonArray.optJSONObject(0);
+            String status = jsonObject.optString("status");
+
+            return status.equalsIgnoreCase("failed");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return false;
+        }
+
     }
 }
