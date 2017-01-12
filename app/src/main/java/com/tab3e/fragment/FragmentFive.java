@@ -8,8 +8,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.StringRequest;
+import com.tab3e.BuildConfig;
 import com.tab3e.R;
 import com.tab3e.R2;
+import com.tab3e.activity.ResultOfAskAboutStudent;
+import com.tab3e.app.AppController;
+import com.tab3e.model.TableItem;
+import com.tab3e.util.SweetDialogHelper;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +58,8 @@ public class FragmentFive extends Fragment{
     @BindView(R2.id.text17)
     TextView textView17;
 
+    private TableItem tableItem;
+
     public FragmentFive(){
 
     }
@@ -55,5 +71,60 @@ public class FragmentFive extends Fragment{
         ButterKnife.bind(this,view);
 
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        tableItem = getArguments().getParcelable("item");
+
+        if (tableItem != null)
+            bindData();
+    }
+
+    private void bindData(){
+        getNameOfClass(tableItem.getFirest(), textView3);
+        getNameOfClass(tableItem.getSecond(), textView5);
+        getNameOfClass(tableItem.getTherd(), textView7);
+        textView9.setText(tableItem.getFree());
+        getNameOfClass(tableItem.getFourth(), textView11);
+        getNameOfClass(tableItem.getFifth(), textView13);
+        getNameOfClass(tableItem.getSixth(), textView15);
+        getNameOfClass(tableItem.getSeventh(), textView17);
+    }
+
+    private void getNameOfClass(String id, final TextView tv) {
+        /**
+         * this section for fetch country
+         */
+        String urlBrands = "http://followson.com/rest/getAlltypes?id=" + id;
+        // making fresh volley request and getting jsonstatus_request
+        StringRequest jsonReq = new StringRequest(Request.Method.GET,
+                urlBrands, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+                    JSONObject jsonObject = jsonArray.optJSONObject(0);
+                    String name = jsonObject.optString("name");
+                    tv.setText(name);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d("response", "Error: " + error.getMessage());
+                new SweetDialogHelper(getActivity()).showErrorMessage("عفوا", "قم بإغلاق الصفحة واعادة فتحهامن جديد");
+            }
+        });
+
+        // Adding request to volley request queue
+        AppController.getInstance().addToRequestQueue(jsonReq);
     }
 }
