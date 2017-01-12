@@ -9,16 +9,26 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.StringRequest;
+import com.tab3e.BuildConfig;
 import com.tab3e.R;
 import com.tab3e.R2;
 import com.tab3e.adapter.SpinnerCustomAdapter;
+import com.tab3e.app.AppController;
 import com.tab3e.model.SpinnerModel;
+import com.tab3e.parser.JsonParser;
+import com.tab3e.util.SweetDialogHelper;
 import com.tab3e.util.Util;
 
 import java.util.ArrayList;
@@ -26,6 +36,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class AskAboutTable extends AboutTab3e
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -67,6 +78,8 @@ public class AskAboutTable extends AboutTab3e
     Spinner spinner6;
 
     @Nullable @BindView(R2.id.card_view1)CardView cardView1;
+
+    private String schoolID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +129,17 @@ public class AskAboutTable extends AboutTab3e
         models = new ArrayList<>();
         models.add(new SpinnerModel("الشعبة", ""));
         populateSpinner6(models);
+
+
+        if (Util.isOnline(this)) {
+            getSchools();
+        } else {
+            // show error message
+            new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("ناسف...")
+                    .setContentText("هناك مشكله بشبكة الانترنت حاول مره اخرى")
+                    .show();
+        }
     }
 
     @Override
@@ -150,6 +174,13 @@ public class AskAboutTable extends AboutTab3e
 //                    countryId = selectedItem.getId();
 //                    cityId = null;
 //                    getCities(countryId);
+                }
+
+                if (position > 0) {
+                    // doSome things
+                    schoolID = selectedItem.getId();
+                } else {
+                    schoolID = null;
                 }
             }
 
@@ -306,5 +337,39 @@ public class AskAboutTable extends AboutTab3e
 
     }
 
+
+    private void getSchools() {
+        /**
+         * this section for fetch country
+         */
+        String urlBrands = BuildConfig.SHOW_ALL_SCHOL_URL;
+        // making fresh volley request and getting jsonstatus_request
+        StringRequest jsonReq = new StringRequest(Request.Method.GET,
+                urlBrands, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                List<SpinnerModel> spinnerItemList = JsonParser.parseSpinnerFeed(response);
+                if (spinnerItemList != null && spinnerItemList.size() > 0) {
+                    spinnerItemList.add(0, new SpinnerModel("المدرسة", ""));
+                    populateSpinner1(spinnerItemList);
+                } else {
+                    new SweetDialogHelper(AskAboutTable.this).showErrorMessage("عفوا", "قم بإغلاق الصفحة واعادة فتحهامن جديد");
+                }
+                Log.d("response", response.toString());
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d("response", "Error: " + error.getMessage());
+                new SweetDialogHelper(AskAboutTable.this).showErrorMessage("عفوا", "قم بإغلاق الصفحة واعادة فتحهامن جديد");
+            }
+        });
+
+        // Adding request to volley request queue
+        AppController.getInstance().addToRequestQueue(jsonReq);
+    }
 
 }

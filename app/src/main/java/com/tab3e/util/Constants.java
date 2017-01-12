@@ -8,6 +8,10 @@ public class Constants {
     public static final String USER_ID = "user_id";
     public static final String STUDENT_ID = "student_id";
     public static final String SCHOOL_ID = "school_id";
+    public static final String YEAR_ID = "year_id";
+    public static final String TERM_ID = "term_id";
+    public static final String SECTION_ID = "section_id";
+    public static final String ROW_ID = "row_id";
     public static final String TOTAL_ABSENT_DAY = "total_absent_day";
 
 }

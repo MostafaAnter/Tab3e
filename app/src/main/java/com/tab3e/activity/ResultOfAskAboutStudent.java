@@ -204,7 +204,7 @@ public class ResultOfAskAboutStudent extends AboutTab3e
                 startActivity(new Intent(this, InfractionDoc.class));
                 break;
             case R.id.card_view6:
-                startActivity(new Intent(this, AskAboutTable.class));
+                startActivity(new Intent(this, TableTabs.class));
                 break;
             case R.id.card_view7:
                 startActivity(new Intent(this, StudentDetails.class));
@@ -291,6 +291,10 @@ public class ResultOfAskAboutStudent extends AboutTab3e
         textView6.setText("رقم البطاقة: " + s.getId_card());
         new Tab3ePrefStore(this).addPreference(Constants.STUDENT_ID, s.getID());
         new Tab3ePrefStore(this).addPreference(Constants.SCHOOL_ID, s.getId_school());
+        new Tab3ePrefStore(this).addPreference(Constants.YEAR_ID, s.getYear());
+        new Tab3ePrefStore(this).addPreference(Constants.SECTION_ID, s.getSection());
+        new Tab3ePrefStore(this).addPreference(Constants.ROW_ID, s.getRow());
+        new Tab3ePrefStore(this).addPreference(Constants.TERM_ID, s.getTerm());
         getRow(s.getRow());
         getSection(s.getSection());
         getToatleAbsent(s.getID());
