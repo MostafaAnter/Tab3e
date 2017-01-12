@@ -42,12 +42,14 @@ import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Optional;
 
 public class AboutTab3e extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         View.OnClickListener{
 
     @BindView(R2.id.toolbar)Toolbar toolbar;
+    @Nullable
     @BindView(R2.id.nav_view)NavigationView navigationView;
 
 

@@ -49,6 +49,7 @@ public class AskAboutStudent extends AboutTab3e
 
     @BindView(R2.id.toolbar)
     Toolbar toolbar;
+    @Nullable
     @BindView(R2.id.nav_view)
     NavigationView navigationView;
     @Nullable
@@ -89,19 +90,19 @@ public class AskAboutStudent extends AboutTab3e
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ask_about_student);
+        setContentView(R.layout.app_bar_ask_about_student);
         ButterKnife.bind(this);
         setToolbar();
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+//                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//        drawer.setDrawerListener(toggle);
+//        toggle.syncState();
 
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        changeFontOfNavigation();
+//        navigationView = (NavigationView) findViewById(R.id.nav_view);
+//        navigationView.setNavigationItemSelectedListener(this);
+//        changeFontOfNavigation();
 
         // change font
         Util.changeViewTypeFace(this, "fonts/DroidKufi-Regular.ttf", textView1);
