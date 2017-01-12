@@ -182,10 +182,10 @@ public class AboutTab3e extends AppCompatActivity
             startActivity(new Intent(AboutTab3e.this, ContactWithSchool.class));
 
         } else if (id == R.id.absent_list) {
-            startActivity(new Intent(AboutTab3e.this, AbsentDoc.class));
+            startActivity(new Intent(AboutTab3e.this, AbsentRoles.class));
 
         } else if (id == R.id.infection_list) {
-            startActivity(new Intent(AboutTab3e.this, InfractionDoc.class));
+            startActivity(new Intent(AboutTab3e.this, InfractionRoles.class));
 
         } else if (id == R.id.about_tab3e) {
             startActivity(new Intent(AboutTab3e.this, AboutTab3e.class));
