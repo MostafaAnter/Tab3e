@@ -13,19 +13,35 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.StringRequest;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.tab3e.R;
 import com.tab3e.R2;
+import com.tab3e.app.AppController;
 import com.tab3e.fragment.FragmentFive;
 import com.tab3e.fragment.FragmentFour;
 import com.tab3e.fragment.FragmentOne;
 import com.tab3e.fragment.FragmentThree;
 import com.tab3e.fragment.FragmentTwo;
+import com.tab3e.model.TableItem;
+import com.tab3e.store.Tab3ePrefStore;
+import com.tab3e.util.Constants;
+import com.tab3e.util.SweetDialogHelper;
 import com.tab3e.util.Util;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +63,17 @@ public class TableTabs extends AboutTab3e
     @Nullable @BindView(R2.id.text1)
     TextView textView1;
 
+    @Nullable
+    @BindView(R2.id.progressBar1)
+    ProgressBar progressBar;
+
+    @Nullable
+    @BindView(R.id.noData)
+    LinearLayout noDataView;
+
+    protected List<TableItem> mDataset;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,10 +81,7 @@ public class TableTabs extends AboutTab3e
         ButterKnife.bind(this);
         setToolbar();
 
-        // set tab
-        setupViewPager(viewPager);
-        tabLayout.setupWithViewPager(viewPager);
-        changeTabsFont();
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -71,6 +95,9 @@ public class TableTabs extends AboutTab3e
 
         // change text font
         Util.changeViewTypeFace(this, "fonts/DroidKufi-Regular.ttf", textView1);
+
+        mDataset = new ArrayList<>();
+        addFakeItems();
 
     }
 
@@ -103,11 +130,37 @@ public class TableTabs extends AboutTab3e
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new FragmentOne(), "الأحد");
-        adapter.addFragment(new FragmentTwo(), "الأثنين");
-        adapter.addFragment(new FragmentThree(), "الثلاثاء");
-        adapter.addFragment(new FragmentFour(), "الأربعاء");
-        adapter.addFragment(new FragmentFive(), "الخميس");
+
+        FragmentOne fragmentOne = new FragmentOne();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("item", mDataset.get(0));
+        fragmentOne.setArguments(bundle);
+
+        FragmentTwo fragmentTwo = new FragmentTwo();
+        bundle = new Bundle();
+        bundle.putParcelable("item", mDataset.get(1));
+        fragmentTwo.setArguments(bundle);
+
+        FragmentThree fragmentThree = new FragmentThree();
+        bundle = new Bundle();
+        bundle.putParcelable("item", mDataset.get(2));
+        fragmentThree.setArguments(bundle);
+
+        FragmentFour fragmentFour = new FragmentFour();
+        bundle = new Bundle();
+        bundle.putParcelable("item", mDataset.get(3));
+        fragmentFour.setArguments(bundle);
+
+        FragmentFive fragmentFive = new FragmentFive();
+        bundle = new Bundle();
+        bundle.putParcelable("item", mDataset.get(4));
+        fragmentFive.setArguments(bundle);
+
+        adapter.addFragment(fragmentOne, "الأحد");
+        adapter.addFragment(fragmentTwo, "الأثنين");
+        adapter.addFragment(fragmentThree, "الثلاثاء");
+        adapter.addFragment(fragmentFour, "الأربعاء");
+        adapter.addFragment(fragmentFive, "الخميس");
         viewPager.setAdapter(adapter);
     }
 
@@ -138,6 +191,57 @@ public class TableTabs extends AboutTab3e
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
+    }
+
+
+    private void addFakeItems(){
+        /**
+         * this section for fetch country
+         */
+        String urlBrands = "http://followson.com/rest/showStutable?id=" + new Tab3ePrefStore(this).getPreferenceValue(Constants.SCHOOL_ID)
+                + "&year=" + new Tab3ePrefStore(this).getPreferenceValue(Constants.YEAR_ID)
+                + "&term=" + new Tab3ePrefStore(this).getPreferenceValue(Constants.TERM_ID)
+                + "&section=" + new Tab3ePrefStore(this).getPreferenceValue(Constants.SECTION_ID)
+                + "&row=" + new Tab3ePrefStore(this).getPreferenceValue(Constants.ROW_ID);
+
+        // making fresh volley request and getting jsonstatus_request
+        StringRequest jsonReq = new StringRequest(Request.Method.GET,
+                urlBrands, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+
+                Log.d("response", response);
+
+                Type listType = new TypeToken<ArrayList<TableItem>>(){}.getType();
+                List<TableItem> yourClassList = new Gson().fromJson(response, listType);
+
+                mDataset.addAll(yourClassList);
+                progressBar.setVisibility(View.GONE);
+                if (mDataset.size()<5){
+                    noDataView.setVisibility(View.VISIBLE);
+                }else if(mDataset.size() == 5) {
+                    noDataView.setVisibility(View.GONE);
+
+                    // set tab
+                    setupViewPager(viewPager);
+                    tabLayout.setupWithViewPager(viewPager);
+                    changeTabsFont();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d("response", "Error: " + error.getMessage());
+                new SweetDialogHelper(TableTabs.this).showErrorMessage("عفوا", "قم بإغلاق الصفحة واعادة فتحهامن جديد");
+            }
+        });
+
+        // Adding request to volley request queue
+        AppController.getInstance().addToRequestQueue(jsonReq);
+
     }
 
 }
