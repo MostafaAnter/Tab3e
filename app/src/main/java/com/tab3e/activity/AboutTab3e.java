@@ -32,6 +32,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.tab3e.R;
 import com.tab3e.R2;
 import com.tab3e.app.AppController;
+import com.tab3e.store.Tab3ePrefStore;
 import com.tab3e.util.CustomTypefaceSpan;
 import com.tab3e.util.SweetDialogHelper;
 import com.tab3e.util.Util;
@@ -46,11 +47,13 @@ import butterknife.Optional;
 
 public class AboutTab3e extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        View.OnClickListener{
+        View.OnClickListener {
 
-    @BindView(R2.id.toolbar)Toolbar toolbar;
+    @BindView(R2.id.toolbar)
+    Toolbar toolbar;
     @Nullable
-    @BindView(R2.id.nav_view)NavigationView navigationView;
+    @BindView(R2.id.nav_view)
+    NavigationView navigationView;
 
 
     @Nullable
@@ -58,7 +61,9 @@ public class AboutTab3e extends AppCompatActivity
     CardView cardView1;
 
 
-    @Nullable @BindView(R2.id.progressBar1) ProgressBar progressBar;
+    @Nullable
+    @BindView(R2.id.progressBar1)
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +118,7 @@ public class AboutTab3e extends AppCompatActivity
     }
 
 
-    public void setToolbar(){
+    public void setToolbar() {
         Util.manipulateToolbar(this, toolbar, 0, null, true);
         ImageView backButton = (ImageView) toolbar.findViewById(R.id.back);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -169,18 +174,27 @@ public class AboutTab3e extends AppCompatActivity
 
         if (id == R.id.ask_about_student) {
             // Handle the camera action
+            startActivity(new Intent(AboutTab3e.this, AskAboutStudent.class));
         } else if (id == R.id.tables) {
+            startActivity(new Intent(AboutTab3e.this, TableTabs.class));
 
         } else if (id == R.id.contact) {
+            startActivity(new Intent(AboutTab3e.this, ContactWithSchool.class));
 
         } else if (id == R.id.absent_list) {
+            startActivity(new Intent(AboutTab3e.this, AbsentDoc.class));
 
         } else if (id == R.id.infection_list) {
+            startActivity(new Intent(AboutTab3e.this, InfractionDoc.class));
 
         } else if (id == R.id.about_tab3e) {
             startActivity(new Intent(AboutTab3e.this, AboutTab3e.class));
 
         } else if (id == R.id.log_out) {
+            new Tab3ePrefStore(this).clearPreference();
+            startActivity(new Intent(AboutTab3e.this, SplashActivity.class)
+                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+
 
         }
 
