@@ -30,6 +30,8 @@ import com.tab3e.adapter.SpinnerCustomAdapter;
 import com.tab3e.app.AppController;
 import com.tab3e.model.SpinnerModel;
 import com.tab3e.parser.JsonParser;
+import com.tab3e.store.Tab3ePrefStore;
+import com.tab3e.util.Constants;
 import com.tab3e.util.SweetDialogHelper;
 import com.tab3e.util.Util;
 
@@ -197,6 +199,8 @@ public class AskAboutStudent extends AboutTab3e
                 if (position > 0) {
                     // doSome things
                     schoolID = selectedItem.getId();
+                    new Tab3ePrefStore(AskAboutStudent.this).addPreference(Constants.ABSENT, selectedItem.getAbsent());
+                    new Tab3ePrefStore(AskAboutStudent.this).addPreference(Constants.ERRORS, selectedItem.getErrors());
                 } else {
                     schoolID = null;
                 }

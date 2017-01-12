@@ -14,4 +14,6 @@ public class Constants {
     public static final String ROW_ID = "row_id";
     public static final String TOTAL_ABSENT_DAY = "total_absent_day";
 
+    public static final String ABSENT = "absent";
+    public static final String ERRORS = "errors";
 }

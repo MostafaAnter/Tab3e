@@ -22,7 +22,9 @@ public class JsonParser {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 String ID = jsonObject.optString("ID");
                 String name = jsonObject.optString("name");
-                modelList.add(new SpinnerModel(name, ID));
+                String absent = jsonObject.optString("absent");
+                String errors = jsonObject.optString("errors");
+                modelList.add(new SpinnerModel(name, ID, absent, errors));
             }
             return modelList;
         } catch (JSONException e) {
