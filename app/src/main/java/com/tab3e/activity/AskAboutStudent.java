@@ -228,10 +228,12 @@ public class AskAboutStudent extends AboutTab3e
         }
         if (studentID == null || studentID.trim().isEmpty()) {
 
-            if (name == null || name.trim().isEmpty()) {
-                new SweetDialogHelper(this).showErrorMessage("خطأ", "الرجاء أدخال رقم بطاقة الطالب");
-                return false;
-            }
+            new SweetDialogHelper(this).showErrorMessage("خطأ", "الرجاء أدخال رقم بطاقة الطالب");
+            return false;
+        }
+        if (name == null || name.trim().isEmpty()) {
+            new SweetDialogHelper(this).showErrorMessage("خطأ", "الرجاء أدخال أسم الطالب");
+            return false;
         }
 
         return true;
@@ -274,8 +276,8 @@ public class AskAboutStudent extends AboutTab3e
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if(requestCode == 101){
-            if (resultCode == RESULT_OK){
+        if (requestCode == 101) {
+            if (resultCode == RESULT_OK) {
                 //---get the result using getIntExtra()---
                 new SweetDialogHelper(AskAboutStudent.this).showWarningMessage("عفوا", "لاتوجد نتأج تأكد من بيانات الطالب", "موافق");
             }

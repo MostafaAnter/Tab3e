@@ -1,5 +1,6 @@
 package com.tab3e.activity;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -213,6 +214,13 @@ public class TableTabs extends AboutTab3e
 
                 Log.d("response", response);
 
+                if (response.trim().isEmpty()){
+                    Intent intent = new Intent();
+                    setResult(RESULT_OK, intent);
+                    finish();
+                    return;
+                }
+
                 Type listType = new TypeToken<ArrayList<TableItem>>(){}.getType();
                 List<TableItem> yourClassList = new Gson().fromJson(response, listType);
 
@@ -235,7 +243,9 @@ public class TableTabs extends AboutTab3e
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d("response", "Error: " + error.getMessage());
-                new SweetDialogHelper(TableTabs.this).showErrorMessage("عفوا", "قم بإغلاق الصفحة واعادة فتحهامن جديد");
+                Intent intent = new Intent();
+                setResult(RESULT_OK, intent);
+                finish();
             }
         });
 

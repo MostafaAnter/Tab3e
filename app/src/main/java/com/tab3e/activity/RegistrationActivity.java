@@ -237,9 +237,10 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnFo
         if (mobile == null || mobile.trim().isEmpty()) {
             new SweetDialogHelper(this).showErrorMessage("خطأ", "الرجاء أدخال رقم الهاتف");
             return false;
-        } else if (!checkPhoneNumber(mobile)) {
-            return false;
         }
+//        else if (!checkPhoneNumber(mobile)) {
+//            return false;
+//        }
 
         if (email == null || email.trim().isEmpty()) {
             new SweetDialogHelper(this).showErrorMessage("خطأ", "الرجاء إدخال البريد الألكتروني");

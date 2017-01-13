@@ -1,8 +1,14 @@
 package com.tab3e.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -37,6 +43,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -162,6 +169,10 @@ public class ResultOfAskAboutStudent extends AboutTab3e
 
         contact.setOnClickListener(this);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            changeDirection();
+        }
+
         getStudentData();
     }
 
@@ -204,7 +215,7 @@ public class ResultOfAskAboutStudent extends AboutTab3e
                 startActivity(new Intent(this, InfractionDoc.class));
                 break;
             case R.id.card_view6:
-                startActivity(new Intent(this, TableTabs.class));
+                showSingleChoiceListLangaugeAlertDialog();
                 break;
             case R.id.card_view7:
                 startActivity(new Intent(this, StudentDetails.class));
@@ -456,5 +467,53 @@ public class ResultOfAskAboutStudent extends AboutTab3e
 
         // Adding request to volley request queue
         AppController.getInstance().addToRequestQueue(jsonReq);
+    }
+
+
+    public void showSingleChoiceListLangaugeAlertDialog() {
+        final String[] list = new String[]{"الأول", "الثاني"};
+        new AlertDialog.Builder(this)
+                .setTitle("الفصل الدراسي")
+                .setSingleChoiceItems(list,
+                        -1,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (which == 0) {
+                                    new Tab3ePrefStore(ResultOfAskAboutStudent.this).addPreference(Constants.TERM_ID, "1");
+                                    startActivityForResult(new Intent(ResultOfAskAboutStudent.this, TableTabs.class),
+                                            101);
+                                    dialog.dismiss();
+                                } else if (which == 1) {
+                                    new Tab3ePrefStore(ResultOfAskAboutStudent.this).addPreference(Constants.TERM_ID, "2");
+                                    startActivityForResult(new Intent(ResultOfAskAboutStudent.this, TableTabs.class),
+                                            101);
+                                    dialog.dismiss();
+                                }
+                            }
+                        })
+                .show();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+    private void changeDirection(){
+        Resources res = getResources();
+        Configuration newConfig = new Configuration( res.getConfiguration() );
+        Locale locale = new Locale( "ar" );
+        newConfig.locale = locale;
+        newConfig.setLocale(locale);
+        newConfig.setLayoutDirection( locale );
+        res.updateConfiguration( newConfig, null );
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 101) {
+            if (resultCode == RESULT_OK) {
+                //---get the result using getIntExtra()---
+                new SweetDialogHelper(ResultOfAskAboutStudent.this).showWarningMessage("عفوا", "لاتوجد جداول متاحة الأن", "موافق");
+            }
+        }
     }
 }
