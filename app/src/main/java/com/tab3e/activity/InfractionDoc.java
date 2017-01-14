@@ -12,6 +12,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -188,11 +189,11 @@ public class InfractionDoc extends AboutTab3e
         mRecyclerView.scrollToPosition(scrollPosition);
     }
 
-    private void addFakeItems(){
+    private void addFakeItems() {
         /**
          * this section for fetch country
          */
-        String urlBrands = BuildConfig.ABSENT_DETAILS + new Tab3ePrefStore(this).getPreferenceValue(Constants.SCHOOL_ID)
+        String urlBrands = BuildConfig.INFRACTION_DETAILS + new Tab3ePrefStore(this).getPreferenceValue(Constants.SCHOOL_ID)
                 + "&id=" + new Tab3ePrefStore(this).getPreferenceValue(Constants.STUDENT_ID);
         // making fresh volley request and getting jsonstatus_request
         StringRequest jsonReq = new StringRequest(Request.Method.GET,
@@ -201,19 +202,21 @@ public class InfractionDoc extends AboutTab3e
             @Override
             public void onResponse(String response) {
 
+                Log.d("response", response);
 
-                Type listType = new TypeToken<ArrayList<InfractionDocItem>>(){}.getType();
+                Type listType = new TypeToken<ArrayList<InfractionDocItem>>() {
+                }.getType();
                 List<InfractionDocItem> yourClassList = new Gson().fromJson(response, listType);
 
                 mDataset.addAll(yourClassList);
                 mAdapter.notifyDataSetChanged();
 
                 progressBar.setVisibility(View.GONE);
-                if (mDataset.size()<1){
+                if (mDataset.size() < 1) {
                     noDataView.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     noDataView.setVisibility(View.GONE);
-                    textView2.setText("إجمالي "+ mDataset.size() + "مخالفة");
+                    textView2.setText("إجمالي " + mDataset.size() + "مخالفة");
                 }
 
             }
