@@ -306,6 +306,7 @@ public class ResultOfAskAboutStudent extends AboutTab3e
         new Tab3ePrefStore(this).addPreference(Constants.SECTION_ID, s.getSection());
         new Tab3ePrefStore(this).addPreference(Constants.ROW_ID, s.getRow());
         new Tab3ePrefStore(this).addPreference(Constants.TERM_ID, s.getTerm());
+        new Tab3ePrefStore(this).addPreference(Constants.STUDENT_ID_CARD, s.getId_card());
         getRow(s.getRow());
         getSection(s.getSection());
         getToatleAbsent(s.getID());

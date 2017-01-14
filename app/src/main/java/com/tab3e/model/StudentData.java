@@ -19,7 +19,20 @@ public class StudentData {
     private String country;
     private String b_date;
 
-    public StudentData(String ID, String id_school, String name, String mobile, String email, String id_card, String year, String term, String level, String row, String section, String country, String b_Date) {
+    public String getH_date() {
+        return h_date;
+    }
+
+    public void setH_date(String h_date) {
+        this.h_date = h_date;
+    }
+
+    private String h_date;
+
+    public StudentData(String ID, String id_school, String name, String mobile,
+                       String email, String id_card, String year, String term,
+                       String level, String row, String section, String country,
+                       String b_Date, String h_date) {
         this.ID = ID;
         this.id_school = id_school;
         this.name = name;
@@ -33,6 +46,7 @@ public class StudentData {
         this.section = section;
         this.country = country;
         this.b_date = b_Date;
+        this.h_date = h_date;
     }
 
     public String getID() {

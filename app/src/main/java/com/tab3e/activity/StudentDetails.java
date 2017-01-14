@@ -168,9 +168,9 @@ public class StudentDetails extends AboutTab3e
          * this section for fetch country
          */
 
-        String urlBrands = "http://followson.com/rest/showProfile?school=" +
+        String urlBrands = "http://followson.com/rest/showStudent?school=" +
                 new Tab3ePrefStore(this).getPreferenceValue(Constants.SCHOOL_ID)
-                + "&id=" + new Tab3ePrefStore(this).getPreferenceValue(Constants.STUDENT_ID);
+                + "&id_card=" + new Tab3ePrefStore(this).getPreferenceValue(Constants.STUDENT_ID_CARD);
         // making fresh volley request and getting jsonstatus_request
         StringRequest jsonReq = new StringRequest(Request.Method.GET,
                 urlBrands, new Response.Listener<String>() {
@@ -233,7 +233,7 @@ public class StudentDetails extends AboutTab3e
         textView3.setText(s.getName());
         getCountry(s.getCountry());
         textView7.setText(s.getId_card());
-        textView9.setText(s.getB_Date());
+        textView9.setText(s.getB_Date() + "-" + s.getH_date());
         textView11.setText(s.getMobile());
         textView13.setText(s.getEmail());
 

@@ -7,6 +7,7 @@ package com.tab3e.util;
 public class Constants {
     public static final String USER_ID = "user_id";
     public static final String STUDENT_ID = "student_id";
+    public static final String STUDENT_ID_CARD = "student_id_card";
     public static final String SCHOOL_ID = "school_id";
     public static final String YEAR_ID = "year_id";
     public static final String TERM_ID = "term_id";
