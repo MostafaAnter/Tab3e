@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -30,6 +32,7 @@ import com.tab3e.adapter.SpinnerCustomAdapter;
 import com.tab3e.app.AppController;
 import com.tab3e.model.SpinnerModel;
 import com.tab3e.parser.JsonParser;
+import com.tab3e.store.AutoCompleteStore;
 import com.tab3e.store.Tab3ePrefStore;
 import com.tab3e.util.Constants;
 import com.tab3e.util.SweetDialogHelper;
@@ -67,7 +70,7 @@ public class AskAboutStudent extends AboutTab3e
 //    EditText editText1;
     @Nullable
     @BindView(R2.id.editText2)
-    EditText editText2;
+    AutoCompleteTextView editText2;
     @Nullable
 
     @BindView(R2.id.linear1)
@@ -113,6 +116,12 @@ public class AskAboutStudent extends AboutTab3e
         // set focuse
        // editText1.setOnFocusChangeListener(this);
         editText2.setOnFocusChangeListener(this);
+        List<String> countries = new AutoCompleteStore(this).findAll();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                (this,android.R.layout.simple_list_item_1,countries);
+        editText2.setAdapter(adapter);
+        editText2.setThreshold(1);
+
 
         // on click
         cardView1.setOnClickListener(this);
@@ -154,6 +163,9 @@ public class AskAboutStudent extends AboutTab3e
                     intent.putExtra("sID", schoolID);
                     intent.putExtra("stID", studentID);
                     intent.putExtra("name", name);
+
+                    new AutoCompleteStore(this).update(studentID);
+
                     startActivityForResult(intent, 101);
                 }
                 break;
@@ -230,10 +242,6 @@ public class AskAboutStudent extends AboutTab3e
             new SweetDialogHelper(this).showErrorMessage("خطأ", "الرجاء أدخال رقم بطاقة الطالب");
             return false;
         }
-//        if (name == null || name.trim().isEmpty()) {
-//            new SweetDialogHelper(this).showErrorMessage("خطأ", "الرجاء أدخال أسم الطالب");
-//            return false;
-//        }
 
         return true;
     }

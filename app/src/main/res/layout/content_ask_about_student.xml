@@ -149,15 +149,17 @@
                     android:contentDescription="@null"
                     android:src="@drawable/ic_se_stu_card" />
 
-                <EditText
+                <AutoCompleteTextView
                     android:id="@+id/editText2"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:background="#00000000"
                     android:hint="@string/stu_id_num"
-                    android:inputType="number"
                     android:textAlignment="viewStart"
                     android:textSize="15sp"
+                    android:ems="10"
+                    android:inputType="number"
+                    android:imeOptions="actionUnspecified"
                     tools:ignore="RtlCompat" />
 
             </LinearLayout>

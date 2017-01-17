@@ -32,6 +32,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.tab3e.R;
 import com.tab3e.R2;
 import com.tab3e.app.AppController;
+import com.tab3e.store.AutoCompleteStore;
 import com.tab3e.store.Tab3ePrefStore;
 import com.tab3e.util.CustomTypefaceSpan;
 import com.tab3e.util.SweetDialogHelper;
@@ -196,6 +197,8 @@ public class AboutTab3e extends AppCompatActivity
 
         } else if (id == R.id.log_out) {
             new Tab3ePrefStore(this).clearPreference();
+            new AutoCompleteStore(this).clearPreference();
+
             startActivity(new Intent(AboutTab3e.this, SplashActivity.class)
                     .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
 
