@@ -62,10 +62,9 @@ public class AskAboutStudent extends AboutTab3e
     @Nullable
     @BindView(R2.id.text3)
     TextView textView3;
-    @Nullable
 
-    @BindView(R2.id.editText1)
-    EditText editText1;
+//    @BindView(R2.id.editText1)
+//    EditText editText1;
     @Nullable
     @BindView(R2.id.editText2)
     EditText editText2;
@@ -108,11 +107,11 @@ public class AskAboutStudent extends AboutTab3e
         Util.changeViewTypeFace(this, "fonts/DroidKufi-Regular.ttf", textView1);
         Util.changeViewTypeFace(this, "fonts/DroidKufi-Regular.ttf", textView2);
         Util.changeViewTypeFace(this, "fonts/DroidKufi-Regular.ttf", textView3);
-        Util.changeViewTypeFace(this, "fonts/DroidKufi-Regular.ttf", editText1);
+//        Util.changeViewTypeFace(this, "fonts/DroidKufi-Regular.ttf", editText1);
         Util.changeViewTypeFace(this, "fonts/DroidKufi-Regular.ttf", editText2);
 
         // set focuse
-        editText1.setOnFocusChangeListener(this);
+       // editText1.setOnFocusChangeListener(this);
         editText2.setOnFocusChangeListener(this);
 
         // on click
@@ -219,7 +218,7 @@ public class AskAboutStudent extends AboutTab3e
     }
 
     private boolean checkValidation() {
-        name = editText1.getText().toString().trim();
+        //name = editText1.getText().toString().trim();
         studentID = editText2.getText().toString().trim();
 
         if (schoolID == null || schoolID.trim().isEmpty()) {
@@ -231,10 +230,10 @@ public class AskAboutStudent extends AboutTab3e
             new SweetDialogHelper(this).showErrorMessage("خطأ", "الرجاء أدخال رقم بطاقة الطالب");
             return false;
         }
-        if (name == null || name.trim().isEmpty()) {
-            new SweetDialogHelper(this).showErrorMessage("خطأ", "الرجاء أدخال أسم الطالب");
-            return false;
-        }
+//        if (name == null || name.trim().isEmpty()) {
+//            new SweetDialogHelper(this).showErrorMessage("خطأ", "الرجاء أدخال أسم الطالب");
+//            return false;
+//        }
 
         return true;
     }

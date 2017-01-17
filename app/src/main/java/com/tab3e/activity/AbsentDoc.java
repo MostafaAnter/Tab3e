@@ -233,23 +233,28 @@ public class AbsentDoc extends AboutTab3e
                 Type listType = new TypeToken<ArrayList<AbsentDocItem>>(){}.getType();
                 List<AbsentDocItem> yourClassList = new Gson().fromJson(response, listType);
 
-                mDataset.addAll(yourClassList);
-                mAdapter.notifyDataSetChanged();
+                if (yourClassList != null) {
+                    mDataset.addAll(yourClassList);
+                    mAdapter.notifyDataSetChanged();
 
-                progressBar.setVisibility(View.GONE);
-                if (mDataset.size()<1){
-                    noDataView.setVisibility(View.VISIBLE);
-                }else {
-                    noDataView.setVisibility(View.GONE);
-                    int withCount = 0;
-                    for (AbsentDocItem absentDocItem: mDataset
-                         ) {
-                        if (absentDocItem.getTypewithe().equalsIgnoreCase("with"))
-                            withCount++;
+                    progressBar.setVisibility(View.GONE);
+                    if (mDataset.size()<1){
+                        noDataView.setVisibility(View.VISIBLE);
+                    }else {
+                        noDataView.setVisibility(View.GONE);
+                        int withCount = 0;
+                        for (AbsentDocItem absentDocItem: mDataset
+                             ) {
+                            if (absentDocItem.getTypewithe().equalsIgnoreCase("with"))
+                                withCount++;
+                        }
+                        textView5.setText(withCount + "");
+                        textView3.setText(mDataset.size()-withCount + "");
+
                     }
-                    textView5.setText(withCount + "");
-                    textView3.setText(mDataset.size()-withCount + "");
-
+                }else {
+                    progressBar.setVisibility(View.GONE);
+                    noDataView.setVisibility(View.VISIBLE);
                 }
 
             }

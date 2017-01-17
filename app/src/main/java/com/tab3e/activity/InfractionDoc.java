@@ -208,15 +208,20 @@ public class InfractionDoc extends AboutTab3e
                 }.getType();
                 List<InfractionDocItem> yourClassList = new Gson().fromJson(response, listType);
 
-                mDataset.addAll(yourClassList);
-                mAdapter.notifyDataSetChanged();
+                if (yourClassList != null) {
+                    mDataset.addAll(yourClassList);
+                    mAdapter.notifyDataSetChanged();
 
-                progressBar.setVisibility(View.GONE);
-                if (mDataset.size() < 1) {
-                    noDataView.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
+                    if (mDataset.size() < 1) {
+                        noDataView.setVisibility(View.VISIBLE);
+                    } else {
+                        noDataView.setVisibility(View.GONE);
+                        textView2.setText("إجمالي " + mDataset.size() + "مخالفة");
+                    }
                 } else {
-                    noDataView.setVisibility(View.GONE);
-                    textView2.setText("إجمالي " + mDataset.size() + "مخالفة");
+                    progressBar.setVisibility(View.GONE);
+                    noDataView.setVisibility(View.VISIBLE);
                 }
 
             }
