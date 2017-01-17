@@ -29,6 +29,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
+import com.tab3e.BuildConfig;
 import com.tab3e.R;
 import com.tab3e.R2;
 import com.tab3e.app.AppController;
@@ -61,6 +62,12 @@ public class AboutTab3e extends AppCompatActivity
     @BindView(R2.id.card_view1)
     CardView cardView1;
 
+    @Nullable
+    @BindView(R2.id.text1)
+    TextView textView1;
+    @Nullable
+    @BindView(R2.id.text2)
+    TextView textView2;
 
     @Nullable
     @BindView(R2.id.progressBar1)
@@ -86,38 +93,18 @@ public class AboutTab3e extends AppCompatActivity
         cardView1.setOnClickListener(this);
 
         if (AboutTab3e.this.getClass().getSimpleName().equalsIgnoreCase("AboutTab3e")) {
-            WebView wv1 = (WebView) findViewById(R.id.webview);
-            progressBar.setVisibility(View.GONE);
+            //change text font
+            Util.changeViewTypeFace(this, "fonts/DroidKufi-Regular.ttf", textView1);
+            Util.changeViewTypeFace(this, "fonts/DroidKufi-Regular.ttf", textView2);
 
-            if (Util.isOnline(this)) {
-                progressBar.setVisibility(View.VISIBLE);
-                wv1.setWebViewClient(new MyBrowser());
-                wv1.getSettings().setLoadsImagesAutomatically(true);
-                wv1.getSettings().setJavaScriptEnabled(true);
-                wv1.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-                wv1.loadUrl("http://followson.com/papers.php?id=1");
-            } else {
-                // show error message
-                new SweetDialogHelper(this).showErrorMessage(getString(R.string.error_string),
-                        getString(R.string.no_internet));
+            if (Util.isOnline(this)){
+                getSubject();
+            }else {
+                progressBar.setVisibility(View.GONE);
             }
+
         }
     }
-
-    private class MyBrowser extends WebViewClient {
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            view.loadUrl(url);
-            return true;
-        }
-
-        @Override
-        public void onPageFinished(WebView view, String url) {
-            super.onPageFinished(view, url);
-            progressBar.setVisibility(View.GONE);
-        }
-    }
-
 
     public void setToolbar() {
         Util.manipulateToolbar(this, toolbar, 0, null, true);
@@ -225,5 +212,43 @@ public class AboutTab3e extends AppCompatActivity
             //e.toString();
         }
 
+    }
+
+    private void getSubject() {
+        /**
+         * this section for fetch country
+         */
+        String urlBrands = "http://followson.com/rest/getPage?id=1";
+        // making fresh volley request and getting jsonstatus_request
+        StringRequest jsonReq = new StringRequest(Request.Method.GET,
+                urlBrands, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+                    JSONObject jsonObject = jsonArray.optJSONObject(0);
+                    String name = jsonObject.optString("subject");
+                    textView2.setText(name);
+                    progressBar.setVisibility(View.GONE);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    progressBar.setVisibility(View.GONE);
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d("response", "Error: " + error.getMessage());
+                progressBar.setVisibility(View.GONE);
+                new SweetDialogHelper(AboutTab3e.this).showErrorMessage("عفوا", "قم بإغلاق الصفحة واعادة فتحهامن جديد");
+            }
+        });
+
+        // Adding request to volley request queue
+        AppController.getInstance().addToRequestQueue(jsonReq);
     }
 }
