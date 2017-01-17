@@ -1,12 +1,16 @@
 package com.tab3e.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tab3e.R;
 import com.tab3e.R2;
@@ -42,6 +46,16 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         TextView textView3;
         @BindView(R2.id.text4)
         TextView textView4;
+        @BindView(R2.id.linear1)LinearLayout linearLayout1;
+        @BindView(R2.id.linear2)LinearLayout linearLayout2;
+
+        public LinearLayout getLinearLayout2() {
+            return linearLayout2;
+        }
+
+        public LinearLayout getLinearLayout1() {
+            return linearLayout1;
+        }
 
         public TextView getTextView1() {
             return textView1;
@@ -111,6 +125,30 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         Util.changeViewTypeFace(mContext, "fonts/DroidKufi-Regular.ttf", viewHolder.getTextView2());
         Util.changeViewTypeFace(mContext, "fonts/DroidKufi-Regular.ttf", viewHolder.getTextView3());
         Util.changeViewTypeFace(mContext, "fonts/DroidKufi-Regular.ttf", viewHolder.getTextView4());
+
+        viewHolder.getLinearLayout1().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent callIntent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + viewHolder.getTextView3().getText().toString()));
+                mContext.startActivity(callIntent);
+            }
+        });
+
+        viewHolder.getLinearLayout2().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("message/rfc822");
+                i.putExtra(Intent.EXTRA_EMAIL  , new String[]{viewHolder.getTextView4().getText().toString()});
+                i.putExtra(Intent.EXTRA_SUBJECT, "تابع");
+                i.putExtra(Intent.EXTRA_TEXT   , "");
+                try {
+                    mContext.startActivity(Intent.createChooser(i, "Send mail..."));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(mContext, "لا يوجد تطبيق لإرسال البريد", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
 
         // Get element from your dataset at this position and replace the contents of the view
