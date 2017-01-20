@@ -1,8 +1,16 @@
 package com.tab3e.adapter;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +31,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by mostafa_anter on 1/10/17.
  */
@@ -32,6 +42,9 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
 
     private List<ContactItem> mDataSet;
     private Context mContext;
+
+    private boolean sentToSettings = false;
+    private SharedPreferences permissionStatus;
 
     /**
      * Provide a reference to the type of views that you are using (custom ViewHolder)
@@ -46,8 +59,10 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         TextView textView3;
         @BindView(R2.id.text4)
         TextView textView4;
-        @BindView(R2.id.linear1)LinearLayout linearLayout1;
-        @BindView(R2.id.linear2)LinearLayout linearLayout2;
+        @BindView(R2.id.linear1)
+        LinearLayout linearLayout1;
+        @BindView(R2.id.linear2)
+        LinearLayout linearLayout2;
 
         public LinearLayout getLinearLayout2() {
             return linearLayout2;
@@ -97,6 +112,8 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     public ContactAdapter(Context mContext, List<ContactItem> dataSet) {
         this.mContext = mContext;
         mDataSet = dataSet;
+        permissionStatus = mContext.getSharedPreferences("permissionStatus",MODE_PRIVATE);
+
     }
 
     // Create new views (invoked by the layout manager)
@@ -129,8 +146,8 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         viewHolder.getLinearLayout1().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent callIntent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + viewHolder.getTextView3().getText().toString()));
-                mContext.startActivity(callIntent);
+                clickOnCall(viewHolder);
+
             }
         });
 
@@ -159,5 +176,68 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     @Override
     public int getItemCount() {
         return mDataSet.size();
+    }
+
+    private void clickOnCall(ViewHolder viewHolder){
+        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale((FragmentActivity)mContext, Manifest.permission.CALL_PHONE)) {
+                //Show Information about why you need the permission
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setTitle("Need Call Phone Permission");
+                builder.setMessage("This app needs call permission.");
+                builder.setPositiveButton("Grant", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        ActivityCompat.requestPermissions((FragmentActivity)mContext, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
+            } else if (permissionStatus.getBoolean(Manifest.permission.CALL_PHONE,false)) {
+                //Previously Permission Request was cancelled with 'Dont Ask Again',
+                // Redirect to Settings after showing Information about why you need the permission
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setTitle("Need Call Phone Permission");
+                builder.setMessage("This app needs call permission.");
+                builder.setPositiveButton("Grant", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        sentToSettings = true;
+                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        Uri uri = Uri.fromParts("package", mContext.getPackageName(), null);
+                        intent.setData(uri);
+                        ((FragmentActivity) mContext).startActivityForResult(intent, 101);
+                        Toast.makeText(mContext, "Go to Permissions to Grant Call", Toast.LENGTH_LONG).show();
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
+            } else {
+                //just request the permission
+                ActivityCompat.requestPermissions((FragmentActivity)mContext, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
+            }
+
+            SharedPreferences.Editor editor = permissionStatus.edit();
+            editor.putBoolean(Manifest.permission.WRITE_EXTERNAL_STORAGE,true);
+            editor.commit();
+
+
+        } else {
+            //You already have the permission, just go ahead.
+            Intent callIntent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + viewHolder.getTextView3().getText().toString()));
+            mContext.startActivity(callIntent);
+        }
     }
 }
