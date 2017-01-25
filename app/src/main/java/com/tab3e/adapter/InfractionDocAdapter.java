@@ -125,34 +125,38 @@ public class InfractionDocAdapter extends RecyclerView.Adapter<InfractionDocAdap
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
         Log.d(TAG, "Element " + position + " set.");
 
-        switch (mDataSet.get(position).getDay()) {
-            case "sunday":
-                viewHolder.getTextView1().setText("الأحد");
-                break;
-            case "monday":
-                viewHolder.getTextView1().setText("الأثنين");
-                break;
-            case "tuesday":
-                viewHolder.getTextView1().setText("الثلاثاء");
-                break;
-            case "wednesday":
-                viewHolder.getTextView1().setText("الأربعاء");
-                break;
-            case "thursday":
-                viewHolder.getTextView1().setText("الخميس");
-                break;
+
+        if (mDataSet.get(position) != null) {
+            if (mDataSet.get(position).getDay() != null)
+            switch (mDataSet.get(position).getDay()) {
+                case "sunday":
+                    viewHolder.getTextView1().setText("الأحد");
+                    break;
+                case "monday":
+                    viewHolder.getTextView1().setText("الأثنين");
+                    break;
+                case "tuesday":
+                    viewHolder.getTextView1().setText("الثلاثاء");
+                    break;
+                case "wednesday":
+                    viewHolder.getTextView1().setText("الأربعاء");
+                    break;
+                case "thursday":
+                    viewHolder.getTextView1().setText("الخميس");
+                    break;
+            }
+            viewHolder.getTextView2().setText(mDataSet.get(position).getM_date() + "م");
+            viewHolder.getTextView3().setText(mDataSet.get(position).getH_date() + "ه");
+
+
+            getNameOfClass(mDataSet.get(position).getTypeabsent(), viewHolder.getTextView4(), (FragmentActivity) mContext);
+            viewHolder.getTextView5().setText(mDataSet.get(position).getHour1() +
+                    " : " + mDataSet.get(position).getHour2());
+            getNameOfClass(mDataSet.get(position).getAbsent(), viewHolder.getTextView6(), (FragmentActivity) mContext);
+
+            // Get element from your dataset at this position and replace the contents of the view
+            // with that element
         }
-        viewHolder.getTextView2().setText(mDataSet.get(position).getM_date() + "م");
-        viewHolder.getTextView3().setText(mDataSet.get(position).getH_date() + "ه");
-
-
-        getNameOfClass(mDataSet.get(position).getTypeabsent(), viewHolder.getTextView4(), (FragmentActivity) mContext);
-        viewHolder.getTextView5().setText(mDataSet.get(position).getHour1() +
-                " : " + mDataSet.get(position).getHour2());
-        getNameOfClass(mDataSet.get(position).getAbsent(), viewHolder.getTextView6(), (FragmentActivity) mContext);
-
-        // Get element from your dataset at this position and replace the contents of the view
-        // with that element
     }
 
     // Return the size of your dataset (invoked by the layout manager)

@@ -112,7 +112,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     public ContactAdapter(Context mContext, List<ContactItem> dataSet) {
         this.mContext = mContext;
         mDataSet = dataSet;
-        permissionStatus = mContext.getSharedPreferences("permissionStatus",MODE_PRIVATE);
+        permissionStatus = mContext.getSharedPreferences("permissionStatus", MODE_PRIVATE);
 
     }
 
@@ -154,15 +154,22 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         viewHolder.getLinearLayout2().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Intent.ACTION_SEND);
-                i.setType("message/rfc822");
-                i.putExtra(Intent.EXTRA_EMAIL  , new String[]{viewHolder.getTextView4().getText().toString()});
-                i.putExtra(Intent.EXTRA_SUBJECT, "تابع");
-                i.putExtra(Intent.EXTRA_TEXT   , "");
+                Log.i("Send email", "");
+                String[] TO = {"viewHolder.getTextView4().getText().toString()"};
+                String[] CC = {""};
+                Intent emailIntent = new Intent(Intent.ACTION_SEND);
+
+                emailIntent.setData(Uri.parse("mailto:"));
+                emailIntent.setType("text/plain");
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+                emailIntent.putExtra(Intent.EXTRA_CC, CC);
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "تابع");
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "");
+
                 try {
-                    mContext.startActivity(Intent.createChooser(i, "Send mail..."));
+                    mContext.startActivity(Intent.createChooser(emailIntent, "Send mail..."));
                 } catch (android.content.ActivityNotFoundException ex) {
-                    Toast.makeText(mContext, "لا يوجد تطبيق لإرسال البريد", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "There is no email client installed.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -178,66 +185,8 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         return mDataSet.size();
     }
 
-    private void clickOnCall(ViewHolder viewHolder){
-        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale((FragmentActivity)mContext, Manifest.permission.CALL_PHONE)) {
-                //Show Information about why you need the permission
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setTitle("Need Call Phone Permission");
-                builder.setMessage("This app needs call permission.");
-                builder.setPositiveButton("Grant", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                        ActivityCompat.requestPermissions((FragmentActivity)mContext, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                builder.show();
-            } else if (permissionStatus.getBoolean(Manifest.permission.CALL_PHONE,false)) {
-                //Previously Permission Request was cancelled with 'Dont Ask Again',
-                // Redirect to Settings after showing Information about why you need the permission
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setTitle("Need Call Phone Permission");
-                builder.setMessage("This app needs call permission.");
-                builder.setPositiveButton("Grant", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                        sentToSettings = true;
-                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                        Uri uri = Uri.fromParts("package", mContext.getPackageName(), null);
-                        intent.setData(uri);
-                        ((FragmentActivity) mContext).startActivityForResult(intent, 101);
-                        Toast.makeText(mContext, "Go to Permissions to Grant Call", Toast.LENGTH_LONG).show();
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                builder.show();
-            } else {
-                //just request the permission
-                ActivityCompat.requestPermissions((FragmentActivity)mContext, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
-            }
-
-            SharedPreferences.Editor editor = permissionStatus.edit();
-            editor.putBoolean(Manifest.permission.WRITE_EXTERNAL_STORAGE,true);
-            editor.commit();
-
-
-        } else {
-            //You already have the permission, just go ahead.
-            Intent callIntent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + viewHolder.getTextView3().getText().toString()));
-            mContext.startActivity(callIntent);
-        }
+    private void clickOnCall(ViewHolder viewHolder) {
+        Intent callIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + viewHolder.getTextView3().getText().toString()));
+        mContext.startActivity(callIntent);
     }
 }

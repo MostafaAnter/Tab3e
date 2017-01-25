@@ -38,6 +38,10 @@ import com.tab3e.util.Constants;
 import com.tab3e.util.SweetDialogHelper;
 import com.tab3e.util.Util;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -203,6 +207,23 @@ public class InfractionDoc extends AboutTab3e
             public void onResponse(String response) {
 
                 Log.d("response", response);
+
+                JSONArray responseArray = null;
+                try {
+                    responseArray = new JSONArray(response);
+                    JSONObject jsonObject = responseArray.optJSONObject(0);
+                    if (jsonObject != null) {
+                        String status = jsonObject.optString("status");
+                        if (status.equalsIgnoreCase("Failed")){
+                            progressBar.setVisibility(View.GONE);
+                            noDataView.setVisibility(View.VISIBLE);
+                            return;
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
 
                 Type listType = new TypeToken<ArrayList<InfractionDocItem>>() {
                 }.getType();

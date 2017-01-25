@@ -229,6 +229,22 @@ public class AbsentDoc extends AboutTab3e
             @Override
             public void onResponse(String response) {
 
+                JSONArray responseArray = null;
+                try {
+                    responseArray = new JSONArray(response);
+                    JSONObject jsonObject = responseArray.optJSONObject(0);
+                    if (jsonObject != null) {
+                        String status = jsonObject.optString("status");
+                        if (status.equalsIgnoreCase("Failed")){
+                            progressBar.setVisibility(View.GONE);
+                            noDataView.setVisibility(View.VISIBLE);
+                            return;
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
 
                 Type listType = new TypeToken<ArrayList<AbsentDocItem>>(){}.getType();
                 List<AbsentDocItem> yourClassList = new Gson().fromJson(response, listType);
