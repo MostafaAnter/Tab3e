@@ -53,7 +53,7 @@ public class ForgetPassword extends AboutTab3e
             wv1.getSettings().setLoadsImagesAutomatically(true);
             wv1.getSettings().setJavaScriptEnabled(true);
             wv1.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-            wv1.loadUrl("http://followson.com/forget_pass.php");
+            wv1.loadUrl("http://followson.com/forget_father.php");
         } else {
             // show error message
             new SweetDialogHelper(this).showErrorMessage(getString(R.string.error_string),

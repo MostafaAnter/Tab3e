@@ -155,7 +155,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
             @Override
             public void onClick(View view) {
                 Log.i("Send email", "");
-                String[] TO = {"viewHolder.getTextView4().getText().toString()"};
+                String[] TO = {viewHolder.getTextView4().getText().toString()};
                 String[] CC = {""};
                 Intent emailIntent = new Intent(Intent.ACTION_SEND);
 
