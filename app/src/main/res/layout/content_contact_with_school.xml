@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#e5eaee"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.tab3e.activity.ContactWithSchool"
+    tools:context="com.tab3e_app.activity.ContactWithSchool"
     tools:showIn="@layout/app_bar_contact_with_school">
 
     <LinearLayout

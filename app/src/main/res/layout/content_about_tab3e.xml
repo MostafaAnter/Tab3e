@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.tab3e.activity.AboutTab3e"
+    tools:context="com.tab3e_app.activity.AboutTab3e"
     tools:showIn="@layout/app_bar_about_tab3e">
 
     <ScrollView

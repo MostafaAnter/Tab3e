@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.tab3e">
+    package="com.tab3e_app">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 
     <application
-        android:name=".app.AppController"
+        android:name="com.tab3e_app.app.AppController"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.SplashActivity"
+            android:name="com.tab3e_app.activity.SplashActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -27,64 +27,64 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.LoginActivity"
+            android:name="com.tab3e_app.activity.LoginActivity"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.RegistrationActivity"
+            android:name="com.tab3e_app.activity.RegistrationActivity"
             android:label="@string/title_activity_registeration"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.AskAboutStudent"
+            android:name="com.tab3e_app.activity.AskAboutStudent"
             android:label="@string/title_activity_ask_about_student"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name=".activity.ResultOfAskAboutStudent"
+            android:name="com.tab3e_app.activity.ResultOfAskAboutStudent"
             android:label="@string/title_activity_result_of_ask_about_student"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.AbsentDoc"
+            android:name="com.tab3e_app.activity.AbsentDoc"
             android:label="@string/title_activity_absent_doc"
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="screenSize|orientation"/>
         <activity
-            android:name=".activity.InfractionDoc"
+            android:name="com.tab3e_app.activity.InfractionDoc"
             android:label="@string/title_activity_infraction_doc"
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="screenSize|orientation"/>
         <activity
-            android:name=".activity.StudentDetails"
+            android:name="com.tab3e_app.activity.StudentDetails"
             android:label="@string/title_activity_student_details"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.AskAboutTable"
+            android:name="com.tab3e_app.activity.AskAboutTable"
             android:label="@string/title_activity_ask_about_table"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.TableTabs"
+            android:name="com.tab3e_app.activity.TableTabs"
             android:label="@string/title_activity_table_tabs"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.ContactWithSchool"
+            android:name="com.tab3e_app.activity.ContactWithSchool"
             android:label="@string/title_activity_contact_with_school"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.AboutTab3e"
+            android:name="com.tab3e_app.activity.AboutTab3e"
             android:label="@string/title_activity_about_tab3e"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.AbsentRoles"
+            android:name="com.tab3e_app.activity.AbsentRoles"
             android:label="@string/title_activity_absent_roles"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.InfractionRoles"
+            android:name="com.tab3e_app.activity.InfractionRoles"
             android:label="@string/title_activity_infraction_roles"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.ForgetPassword"
+            android:name="com.tab3e_app.activity.ForgetPassword"
             android:label="@string/title_activity_forget_password"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>

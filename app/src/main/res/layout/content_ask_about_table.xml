@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.tab3e.activity.AskAboutTable"
+    tools:context="com.tab3e_app.activity.AskAboutTable"
     tools:showIn="@layout/app_bar_ask_about_table">
 
     <ImageView

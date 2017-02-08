@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:layoutDirection="rtl"
-    tools:context="com.tab3e.activity.LoginActivity"
+    tools:context="com.tab3e_app.activity.LoginActivity"
     tools:ignore="UnusedAttribute">
 
     <android.support.design.widget.AppBarLayout

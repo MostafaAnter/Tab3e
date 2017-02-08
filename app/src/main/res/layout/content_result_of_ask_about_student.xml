@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#e5eaee"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.tab3e.activity.ResultOfAskAboutStudent"
+    tools:context="com.tab3e_app.activity.ResultOfAskAboutStudent"
     tools:showIn="@layout/app_bar_result_of_ask_about_student">
 
     <LinearLayout
