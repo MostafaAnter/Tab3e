@@ -257,6 +257,12 @@ public class AbsentDoc extends AboutTab3e
                     if (mDataset.size()<1){
                         noDataView.setVisibility(View.VISIBLE);
                     }else {
+                        // for notification
+                        new Tab3ePrefStore(AbsentDoc.this).addPreference(Constants.PUSH_NOTIFICATION, "true");
+                        new Tab3ePrefStore(AbsentDoc.this).addPreference(Constants.LAST_ABSENT,
+                                mDataset.get(0).getID() + mDataset.get(0).getH_date() + mDataset.get(0).getDay());
+                        // end notification
+
                         noDataView.setVisibility(View.GONE);
                         int withCount = 0;
                         for (AbsentDocItem absentDocItem: mDataset

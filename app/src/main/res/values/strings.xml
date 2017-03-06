@@ -54,4 +54,5 @@
     <string name="title_activity_forget_password">ForgetPassword</string>
     <string name="error_string">حدث خطأ</string>
     <string name="no_internet">لا يوجد أتصال بالأنترنت</string>
+    <string name="custom_notification">لديك إشعار جديد</string>
 </resources>

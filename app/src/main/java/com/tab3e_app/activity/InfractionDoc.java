@@ -235,6 +235,11 @@ public class InfractionDoc extends AboutTab3e
                     if (mDataset.size() < 1) {
                         noDataView.setVisibility(View.VISIBLE);
                     } else {
+                        // for notification
+                        new Tab3ePrefStore(InfractionDoc.this).addPreference(Constants.PUSH_NOTIFICATION, "true");
+                        new Tab3ePrefStore(InfractionDoc.this).addPreference(Constants.LAST_INFRACTION,
+                                mDataset.get(0).getID() + mDataset.get(0).getH_date() + mDataset.get(0).getDay());
+                        // end notification
                         noDataView.setVisibility(View.GONE);
                         textView2.setText("إجمالي " + mDataset.size() + "مخالفة");
                     }

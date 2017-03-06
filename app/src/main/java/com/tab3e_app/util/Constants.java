@@ -17,4 +17,10 @@ public class Constants {
 
     public static final String ABSENT = "absent";
     public static final String ERRORS = "errors";
+
+    // for notification
+    public static final String PUSH_NOTIFICATION = "push_notification";
+    public static final String LAST_ABSENT = "last_absent";
+    public static final String LAST_INFRACTION = "last_infraction";
+
 }
