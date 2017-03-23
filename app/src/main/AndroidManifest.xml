@@ -6,18 +6,17 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-
     <application
-        android:name="com.tab3e_app.app.AppController"
+        android:name=".app.AppController"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
-        tools:replace="android:icon"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon">
         <activity
-            android:name="com.tab3e_app.activity.SplashActivity"
+            android:name=".activity.SplashActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -27,91 +26,92 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.tab3e_app.activity.LoginActivity"
+            android:name=".activity.LoginActivity"
+            android:configChanges="screenSize|orientation"
             android:label="@string/title_activity_login"
-            android:configChanges="screenSize|orientation"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name="com.tab3e_app.activity.RegistrationActivity"
+            android:name=".activity.RegistrationActivity"
+            android:configChanges="screenSize|orientation"
             android:label="@string/title_activity_registeration"
-            android:configChanges="screenSize|orientation"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name="com.tab3e_app.activity.AskAboutStudent"
+            android:name=".activity.AskAboutStudent"
+            android:configChanges="screenSize|orientation"
             android:label="@string/title_activity_ask_about_student"
             android:theme="@style/AppTheme.NoActionBar"
-            android:configChanges="screenSize|orientation"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name="com.tab3e_app.activity.ResultOfAskAboutStudent"
+            android:name=".activity.ResultOfAskAboutStudent"
+            android:configChanges="screenSize|orientation"
             android:label="@string/title_activity_result_of_ask_about_student"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:configChanges="screenSize|orientation"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.tab3e_app.activity.AbsentDoc"
+            android:name=".activity.AbsentDoc"
+            android:configChanges="screenSize|orientation"
             android:label="@string/title_activity_absent_doc"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:configChanges="screenSize|orientation"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.tab3e_app.activity.InfractionDoc"
+            android:name=".activity.InfractionDoc"
+            android:configChanges="screenSize|orientation"
             android:label="@string/title_activity_infraction_doc"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:configChanges="screenSize|orientation" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.tab3e_app.activity.StudentDetails"
+            android:name=".activity.StudentDetails"
+            android:configChanges="screenSize|orientation"
             android:label="@string/title_activity_student_details"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:configChanges="screenSize|orientation"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.tab3e_app.activity.AskAboutTable"
+            android:name=".activity.AskAboutTable"
+            android:configChanges="screenSize|orientation"
             android:label="@string/title_activity_ask_about_table"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:configChanges="screenSize|orientation"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.tab3e_app.activity.TableTabs"
+            android:name=".activity.TableTabs"
+            android:configChanges="screenSize|orientation"
             android:label="@string/title_activity_table_tabs"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:configChanges="screenSize|orientation"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.tab3e_app.activity.ContactWithSchool"
+            android:name=".activity.ContactWithSchool"
+            android:configChanges="screenSize|orientation"
             android:label="@string/title_activity_contact_with_school"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:configChanges="screenSize|orientation"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.tab3e_app.activity.AboutTab3e"
+            android:name=".activity.AboutTab3e"
+            android:configChanges="screenSize|orientation"
             android:label="@string/title_activity_about_tab3e"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:configChanges="screenSize|orientation"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.tab3e_app.activity.AbsentRoles"
+            android:name=".activity.AbsentRoles"
+            android:configChanges="screenSize|orientation"
             android:label="@string/title_activity_absent_roles"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:configChanges="screenSize|orientation"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.tab3e_app.activity.InfractionRoles"
+            android:name=".activity.InfractionRoles"
+            android:configChanges="screenSize|orientation"
             android:label="@string/title_activity_infraction_roles"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:configChanges="screenSize|orientation"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.tab3e_app.activity.ForgetPassword"
+            android:name=".activity.ForgetPassword"
+            android:configChanges="screenSize|orientation"
             android:label="@string/title_activity_forget_password"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:configChanges="screenSize|orientation"/>
+            android:theme="@style/AppTheme.NoActionBar" />
 
-
-
-
-        <!--disable local notification-->
-        <!--<service android:name=".notification.Tab3eNotification" />-->
-        <!--&lt;!&ndash; Broadcast Receiver to handle changes in Network state &ndash;&gt;-->
-        <!--<receiver android:name=".notification.Tab3eNotification$AlarmReceiver" >-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>-->
-                <!--<action android:name="android.net.wifi.WIFI_STATE_CHANGED" />-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
+        <!-- disable local notification -->
+        <!-- <service android:name=".notification.Tab3eNotification" /> -->
+        <!-- &lt;!&ndash; Broadcast Receiver to handle changes in Network state &ndash;&gt; -->
+        <!-- <receiver android:name=".notification.Tab3eNotification$AlarmReceiver" > -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/> -->
+        <!-- <action android:name="android.net.wifi.WIFI_STATE_CHANGED" /> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
+        <activity
+            android:name=".activity.ChildrenListActivity"
+            android:label="@string/title_activity_children_list"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

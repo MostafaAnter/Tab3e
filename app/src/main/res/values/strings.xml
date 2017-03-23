@@ -55,4 +55,6 @@
     <string name="error_string">حدث خطأ</string>
     <string name="no_internet">لا يوجد أتصال بالأنترنت</string>
     <string name="custom_notification">لديك إشعار جديد</string>
+    <string name="title_activity_children_list">ChildrenListActivity</string>
+    <string name="child_list">قائمة الابناء</string>
 </resources>

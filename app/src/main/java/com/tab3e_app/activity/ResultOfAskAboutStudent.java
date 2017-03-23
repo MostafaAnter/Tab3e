@@ -260,6 +260,23 @@ public class ResultOfAskAboutStudent extends AboutTab3e
                     public void onResponse(String response) {
                         Log.d(TAG, response);
                         sd.dismissDialog();
+
+                        JSONArray jsonArray = null;
+                        try {
+                            jsonArray = new JSONArray(response);
+                            JSONObject jsonObject = jsonArray.optJSONObject(0);
+                            String s = jsonObject.optString("status");
+                            String msg = jsonObject.optString("msg");
+                            if (s.equalsIgnoreCase("Success")){
+                                sd.showSuccessfulMessage("تم بنجاح", "تم أضافة الطالب لقائمة الابناء");
+                            }else {
+                                sd.showWarningMessage("انتبه!", "يبدو انك قمت بأضافة هذا الطالب من قبل","موافق");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            sd.showErrorMessage("خطأ!", "الرجاء المحاوله مره أخرى");
+                        }
+
                     }
                 }, new Response.ErrorListener() {
 
@@ -267,6 +284,7 @@ public class ResultOfAskAboutStudent extends AboutTab3e
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
                 sd.dismissDialog();
+                sd.showErrorMessage("خطأ!", "الرجاء المحاوله مره أخرى");
             }
         }) {
 
@@ -275,10 +293,8 @@ public class ResultOfAskAboutStudent extends AboutTab3e
                 Map<String, String> params = new HashMap<>();
                 params.put("id_father", new Tab3ePrefStore(ResultOfAskAboutStudent.this)
                 .getPreferenceValue(Constants.USER_ID));
-                params.put("id_son", new Tab3ePrefStore(ResultOfAskAboutStudent.this)
-                        .getPreferenceValue(Constants.STUDENT_ID_CARD));
-                params.put("id_school", new Tab3ePrefStore(ResultOfAskAboutStudent.this)
-                        .getPreferenceValue(Constants.SCHOOL_ID));
+                params.put("id_son", studentID);
+                params.put("id_school", schoolID);
 
                 return params;
             }

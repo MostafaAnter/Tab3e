@@ -161,21 +161,30 @@ public class AboutTab3e extends AppCompatActivity
 
         if (id == R.id.ask_about_student) {
             // Handle the camera action
-            startActivity(new Intent(AboutTab3e.this, AskAboutStudent.class));
+            startActivity(new Intent(AboutTab3e.this, AskAboutStudent.class)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
         } else if (id == R.id.tables) {
-            startActivity(new Intent(AboutTab3e.this, TableTabs.class));
+            startActivity(new Intent(AboutTab3e.this, TableTabs.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+
+        }else if (id == R.id.child_list) {
+            startActivity(new Intent(AboutTab3e.this, ChildrenListActivity.class)
+            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 
         } else if (id == R.id.contact) {
-            startActivity(new Intent(AboutTab3e.this, ContactWithSchool.class));
+            startActivity(new Intent(AboutTab3e.this, ContactWithSchool.class)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 
         } else if (id == R.id.absent_list) {
-            startActivity(new Intent(AboutTab3e.this, AbsentRoles.class));
+            startActivity(new Intent(AboutTab3e.this, AbsentRoles.class)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 
         } else if (id == R.id.infection_list) {
-            startActivity(new Intent(AboutTab3e.this, InfractionRoles.class));
+            startActivity(new Intent(AboutTab3e.this, InfractionRoles.class)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 
         } else if (id == R.id.about_tab3e) {
-            startActivity(new Intent(AboutTab3e.this, AboutTab3e.class));
+            startActivity(new Intent(AboutTab3e.this, AboutTab3e.class)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 
         } else if (id == R.id.log_out) {
             new Tab3ePrefStore(this).clearPreference();
