@@ -87,14 +87,19 @@
             android:name="com.tab3e_app.activity.ForgetPassword"
             android:label="@string/title_activity_forget_password"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <service android:name=".notification.Tab3eNotification" />
-        <!-- Broadcast Receiver to handle changes in Network state -->
-        <receiver android:name=".notification.Tab3eNotification$AlarmReceiver" >
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
-                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
-            </intent-filter>
-        </receiver>
+
+
+
+
+        <!--disable local notification-->
+        <!--<service android:name=".notification.Tab3eNotification" />-->
+        <!--&lt;!&ndash; Broadcast Receiver to handle changes in Network state &ndash;&gt;-->
+        <!--<receiver android:name=".notification.Tab3eNotification$AlarmReceiver" >-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>-->
+                <!--<action android:name="android.net.wifi.WIFI_STATE_CHANGED" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
     </application>
 
 </manifest>
