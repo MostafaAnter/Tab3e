@@ -36,22 +36,35 @@ import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class LoginActivity extends AppCompatActivity implements View.OnFocusChangeListener,
-        View.OnClickListener{
+        View.OnClickListener {
 
-    @BindView(R2.id.text1)TextView textView1;
-    @BindView(R2.id.text2)TextView textView2;
-    @BindView(R2.id.text3)TextView textView3;
-    @BindView(R2.id.text4)TextView textView4;
-    @BindView(R2.id.text5)TextView textView5;
-    @BindView(R2.id.text6)TextView textView6;
-    @BindView(R2.id.editText1)EditText editText1;
-    @BindView(R2.id.editText2)EditText editText2;
-    @BindView(R2.id.checkbox1)CheckBox checkBox1;
-    @BindView(R2.id.linear1)LinearLayout linear1;
-    @BindView(R2.id.linear2)LinearLayout linear2;
+    @BindView(R2.id.text1)
+    TextView textView1;
+    @BindView(R2.id.text2)
+    TextView textView2;
+    @BindView(R2.id.text3)
+    TextView textView3;
+    @BindView(R2.id.text4)
+    TextView textView4;
+    @BindView(R2.id.text5)
+    TextView textView5;
+    @BindView(R2.id.text6)
+    TextView textView6;
+    @BindView(R2.id.editText1)
+    EditText editText1;
+    @BindView(R2.id.editText2)
+    EditText editText2;
+    @BindView(R2.id.checkbox1)
+    CheckBox checkBox1;
+    @BindView(R2.id.linear1)
+    LinearLayout linear1;
+    @BindView(R2.id.linear2)
+    LinearLayout linear2;
 
-    @BindView(R2.id.card_view1)CardView cardView1;
-    @BindView(R2.id.card_view2)CardView cardView2;
+    @BindView(R2.id.card_view1)
+    CardView cardView1;
+    @BindView(R2.id.card_view2)
+    CardView cardView2;
 
 
     private String email, password, userId;
@@ -94,9 +107,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
 
     @Override
     public void onFocusChange(View view, boolean b) {
-        if (view instanceof EditText){
-            if (b){
-                switch (view.getId()){
+        if (view instanceof EditText) {
+            if (b) {
+                switch (view.getId()) {
                     case R.id.editText1:
                         linear1.setBackgroundResource(R.drawable.border_shape_blue);
                         break;
@@ -104,8 +117,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
                         linear2.setBackgroundResource(R.drawable.border_shape_blue);
                         break;
                 }
-            }else {
-                switch (view.getId()){
+            } else {
+                switch (view.getId()) {
                     case R.id.editText1:
                         linear1.setBackgroundResource(R.drawable.border_shape_gray);
                         break;
@@ -119,7 +132,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.card_view1:
                 login();
                 break;
@@ -135,17 +148,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
         }
     }
 
-    private boolean validateDate(){
+    private boolean validateDate() {
         email = editText1.getText().toString().trim();
         password = editText2.getText().toString().trim();
 
 
         if (email != null && !email.trim().isEmpty()
-                && password != null && !password.trim().isEmpty()){
+                && password != null && !password.trim().isEmpty()) {
 
             return true;
 
-        }else {
+        } else {
             // show error message
             new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
                     .setTitleText("نأسف !")
@@ -172,19 +185,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
                     @Override
                     public void onResponse(String response) {
                         sdh.dismissDialog();
-                       // parseFeed(response);
+                        // parseFeed(response);
                         Log.d("response", response);
                         if (isSuccess(response)) {
                             Intent intent = new Intent(LoginActivity.this, AskAboutStudent.class);
-                            if (checkBox1.isChecked())
-                                new Tab3ePrefStore(LoginActivity.this).addPreference(Constants.USER_ID, userId);
+                            new Tab3ePrefStore(LoginActivity.this).addPreference(Constants.USER_ID, userId);
                             startActivity(intent);
                             finish();
                         } else {
                             sdh.showErrorMessage("خطأ", "أسم أو باسورد خطأ الرجاء إعادة المحاولة");
                         }
-                      //  startActivity(new Intent(SignInActivity.this, ClientHomeActivity.class));
-                       // finish();
+                        //  startActivity(new Intent(SignInActivity.this, ClientHomeActivity.class));
+                        // finish();
                     }
                 }, new Response.ErrorListener() {
 

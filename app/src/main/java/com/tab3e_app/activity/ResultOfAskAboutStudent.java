@@ -17,6 +17,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -43,7 +44,9 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -137,6 +140,14 @@ public class ResultOfAskAboutStudent extends AboutTab3e
     @BindView(R2.id.body)
     View v;
 
+    @Nullable
+    @BindView(R2.id.textAddToList)
+    TextView textAddToList;
+
+    @Nullable
+    @BindView(R2.id.addToList)
+    Button addToList;
+
     private StudentData studentData;
 
     @Override
@@ -166,14 +177,16 @@ public class ResultOfAskAboutStudent extends AboutTab3e
         cardView2.setOnClickListener(this);
         cardView3.setOnClickListener(this);
         cardView4.setOnClickListener(this);
-
         contact.setOnClickListener(this);
+        addToList.setOnClickListener(this);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             changeDirection();
         }
 
         getStudentData();
+
+
     }
 
     @Override
@@ -201,8 +214,8 @@ public class ResultOfAskAboutStudent extends AboutTab3e
         Util.changeViewTypeFace(this, "fonts/DroidKufi-Regular.ttf", textView12);
         Util.changeViewTypeFace(this, "fonts/DroidKufi-Regular.ttf", textView13);
         Util.changeViewTypeFace(this, "fonts/DroidKufi-Regular.ttf", textView14);
-        //Util.changeViewTypeFace(this, "fonts/DroidKufi-Regular.ttf", textView15);
-        //Util.changeViewTypeFace(this, "fonts/DroidKufi-Regular.ttf", textView16);
+//        Util.changeViewTypeFace(this, "fonts/DroidKufi-Regular.ttf", textAddToList);
+//        Util.changeViewTypeFace(this, "fonts/DroidKufi-Regular.ttf", addToList);
     }
 
     @Override
@@ -223,13 +236,66 @@ public class ResultOfAskAboutStudent extends AboutTab3e
             case R.id.contact:
                 startActivity(new Intent(this, ContactWithSchool.class));
                 break;
+            case R.id.addToList:
+                addStudentToList();
+                break;
         }
     }
 
+    private static final String TAG = "ResultOfAskAboutStudent";
+    private void addStudentToList(){
+        // Tag used to cancel the request
+        String tag_json_obj = "json_obj_req";
+
+        String url = "http://followson.com/rest/addSon";
+
+        final SweetDialogHelper sd = new SweetDialogHelper(this);
+        sd.showMaterialProgress("جاري الأضافة...");
+
+        StringRequest jsonObjReq = new StringRequest(Request.Method.POST,
+                url,
+                new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d(TAG, response);
+                        sd.dismissDialog();
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                sd.dismissDialog();
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("id_father", new Tab3ePrefStore(ResultOfAskAboutStudent.this)
+                .getPreferenceValue(Constants.USER_ID));
+                params.put("id_son", new Tab3ePrefStore(ResultOfAskAboutStudent.this)
+                        .getPreferenceValue(Constants.STUDENT_ID_CARD));
+                params.put("id_school", new Tab3ePrefStore(ResultOfAskAboutStudent.this)
+                        .getPreferenceValue(Constants.SCHOOL_ID));
+
+                return params;
+            }
+
+        };
+
+         // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+    }
+
+    private String studentID = "", schoolID = "";
     private void getStudentData() {
         /**
          * this section for fetch country
          */
+        studentID = getIntent().getExtras().getString("stID", "");
+        schoolID = getIntent().getStringExtra("sID");
         String name = getIntent()
                 .getExtras().getString("name", "");
         try {
@@ -237,8 +303,8 @@ public class ResultOfAskAboutStudent extends AboutTab3e
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        String urlBrands = BuildConfig.GET_STUDENT_DATA + getIntent().getStringExtra("sID")
-                + "&id_card=" + getIntent().getExtras().getString("stID", "") + "&name=" + name;
+        String urlBrands = BuildConfig.GET_STUDENT_DATA + schoolID
+                + "&id_card=" + studentID + "&name=" + name;
         // making fresh volley request and getting jsonstatus_request
         StringRequest jsonReq = new StringRequest(Request.Method.GET,
                 urlBrands, new Response.Listener<String>() {
