@@ -29,22 +29,26 @@
         <activity
             android:name="com.tab3e_app.activity.LoginActivity"
             android:label="@string/title_activity_login"
+            android:configChanges="screenSize|orientation"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
             android:name="com.tab3e_app.activity.RegistrationActivity"
             android:label="@string/title_activity_registeration"
+            android:configChanges="screenSize|orientation"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
             android:name="com.tab3e_app.activity.AskAboutStudent"
             android:label="@string/title_activity_ask_about_student"
             android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="screenSize|orientation"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
             android:name="com.tab3e_app.activity.ResultOfAskAboutStudent"
             android:label="@string/title_activity_result_of_ask_about_student"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="screenSize|orientation"/>
         <activity
             android:name="com.tab3e_app.activity.AbsentDoc"
             android:label="@string/title_activity_absent_doc"
@@ -54,39 +58,47 @@
             android:name="com.tab3e_app.activity.InfractionDoc"
             android:label="@string/title_activity_infraction_doc"
             android:theme="@style/AppTheme.NoActionBar"
-            android:configChanges="screenSize|orientation"/>
+            android:configChanges="screenSize|orientation" />
         <activity
             android:name="com.tab3e_app.activity.StudentDetails"
             android:label="@string/title_activity_student_details"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="screenSize|orientation"/>
         <activity
             android:name="com.tab3e_app.activity.AskAboutTable"
             android:label="@string/title_activity_ask_about_table"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="screenSize|orientation"/>
         <activity
             android:name="com.tab3e_app.activity.TableTabs"
             android:label="@string/title_activity_table_tabs"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="screenSize|orientation"/>
         <activity
             android:name="com.tab3e_app.activity.ContactWithSchool"
             android:label="@string/title_activity_contact_with_school"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="screenSize|orientation"/>
         <activity
             android:name="com.tab3e_app.activity.AboutTab3e"
             android:label="@string/title_activity_about_tab3e"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="screenSize|orientation"/>
         <activity
             android:name="com.tab3e_app.activity.AbsentRoles"
             android:label="@string/title_activity_absent_roles"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="screenSize|orientation"/>
         <activity
             android:name="com.tab3e_app.activity.InfractionRoles"
             android:label="@string/title_activity_infraction_roles"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="screenSize|orientation"/>
         <activity
             android:name="com.tab3e_app.activity.ForgetPassword"
             android:label="@string/title_activity_forget_password"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="screenSize|orientation"/>
 
 
 
