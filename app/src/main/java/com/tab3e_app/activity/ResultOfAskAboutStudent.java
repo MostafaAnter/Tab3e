@@ -310,7 +310,6 @@ public class ResultOfAskAboutStudent extends AboutTab3e
         /**
          * this section for fetch country
          */
-        studentID = getIntent().getExtras().getString("stID", "");
         schoolID = getIntent().getStringExtra("sID");
         String name = getIntent()
                 .getExtras().getString("name", "");
@@ -320,7 +319,7 @@ public class ResultOfAskAboutStudent extends AboutTab3e
             e.printStackTrace();
         }
         String urlBrands = BuildConfig.GET_STUDENT_DATA + schoolID
-                + "&id_card=" + studentID + "&name=" + name;
+                + "&id_card=" + getIntent().getExtras().getString("stID", "") + "&name=" + name;
         // making fresh volley request and getting jsonstatus_request
         StringRequest jsonReq = new StringRequest(Request.Method.GET,
                 urlBrands, new Response.Listener<String>() {
@@ -380,6 +379,7 @@ public class ResultOfAskAboutStudent extends AboutTab3e
     }
 
     private void bindData(StudentData s) {
+        studentID = s.getID();
         textView2.setText(s.getName());
         textView6.setText("رقم البطاقة: " + s.getId_card());
         new Tab3ePrefStore(this).addPreference(Constants.STUDENT_ID, s.getID());
