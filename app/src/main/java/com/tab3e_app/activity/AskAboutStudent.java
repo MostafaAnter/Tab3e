@@ -25,6 +25,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.tab3e_app.BuildConfig;
 import com.tab3e_app.R;
 import com.tab3e_app.R2;
@@ -133,6 +134,7 @@ public class AskAboutStudent extends AboutTab3e
 
         if (Util.isOnline(this)) {
             getSchools();
+            updateToken();
         } else {
             // show error message
             new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
@@ -287,6 +289,38 @@ public class AskAboutStudent extends AboutTab3e
                 new SweetDialogHelper(AskAboutStudent.this).showWarningMessage("عفوا", "لاتوجد نتأج تأكد من بيانات الطالب", "موافق");
             }
         }
+    }
+
+
+    private static final String TAG = "AskAboutStudent";
+    private void updateToken() {
+        if (Util.isOnline(this) && !new Tab3ePrefStore(this).getPreferenceValue(Constants.USER_ID).isEmpty()) {
+            String url = "https://followson.com/rest/setToken?id="
+                    + new Tab3ePrefStore(this).getPreferenceValue(Constants.USER_ID)
+                    +"&token=" + FirebaseInstanceId.getInstance().getToken();
+
+            StringRequest jsonObjReq = new StringRequest(Request.Method.GET,
+                    url,
+                    new Response.Listener<String>() {
+
+                        @Override
+                        public void onResponse(String response) {
+                            Log.d(TAG, response.toString());
+
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.d(TAG, "Error: " + error.getMessage());
+                }
+            }) ;
+            // disable cache
+            jsonObjReq.setShouldCache(false);
+            // Adding request to request queue
+            AppController.getInstance().addToRequestQueue(jsonObjReq);
+        }
+
     }
 
 }
