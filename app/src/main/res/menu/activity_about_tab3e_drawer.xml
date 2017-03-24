@@ -8,7 +8,7 @@
             android:title="@string/ask_about_student" />
         <item
             android:id="@+id/child_list"
-            android:icon="@drawable/ic_me_search"
+            android:icon="@drawable/ic_action_add_user_button"
             android:title="@string/child_list" />
         <item
             android:id="@+id/tables"
