@@ -295,6 +295,7 @@ public class ResultOfAskAboutStudent extends AboutTab3e
                 .getPreferenceValue(Constants.USER_ID));
                 params.put("id_son", studentID);
                 params.put("id_school", schoolID);
+                params.put("id_card", getIntent().getExtras().getString("stID", ""));
 
                 return params;
             }

@@ -8,13 +8,24 @@ public class ChildItem {
     private String ID;
     private String id_father;
     private String id_son;
+
+    public String getId_card() {
+        return id_card;
+    }
+
+    public void setId_card(String id_card) {
+        this.id_card = id_card;
+    }
+
+    private String id_card;
     private String id_school;
 
-    public ChildItem(String ID, String id_father, String id_son, String id_school) {
+    public ChildItem(String ID, String id_father, String id_card, String id_son, String id_school) {
         this.ID = ID;
         this.id_father = id_father;
         this.id_son = id_son;
         this.id_school = id_school;
+        this.id_card = id_card;
     }
 
     public ChildItem() {

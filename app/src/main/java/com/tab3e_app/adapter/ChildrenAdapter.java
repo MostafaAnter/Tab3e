@@ -136,7 +136,7 @@ public class ChildrenAdapter extends RecyclerView.Adapter<ChildrenAdapter.ViewHo
         /**
          * this section for fetch country
          */
-        String studentID = item.getId_son();
+        String studentID = item.getId_card();
         String schoolID = item.getId_school();
 
         String urlBrands = BuildConfig.GET_STUDENT_DATA + schoolID
