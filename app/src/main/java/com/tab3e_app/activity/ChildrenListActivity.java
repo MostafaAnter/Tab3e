@@ -44,6 +44,10 @@ import com.tab3e_app.util.Constants;
 import com.tab3e_app.util.SweetDialogHelper;
 import com.tab3e_app.util.Util;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -287,19 +291,26 @@ public class ChildrenListActivity extends AboutTab3e
             @Override
             public void onResponse(String response) {
 
+                JSONArray array = null;
+                try {
+                    array = new JSONArray(response);
+                    JSONObject object = array.optJSONObject(0);
+                    String status = object.optString("status");
+                    if (!status.equalsIgnoreCase("Failed")){
+                        Type listType = new TypeToken<ArrayList<ChildItem>>() {
+                        }.getType();
+                        List<ChildItem> yourClassList = new Gson().fromJson(response, listType);
 
-                Type listType = new TypeToken<ArrayList<ChildItem>>() {
-                }.getType();
-                List<ChildItem> yourClassList = new Gson().fromJson(response, listType);
-
-                mDataset.addAll(yourClassList);
-                mAdapter.notifyDataSetChanged();
-
-                progressBar.setVisibility(View.GONE);
-                if (mDataset.size() < 1) {
-                    noDataView.setVisibility(View.VISIBLE);
-                } else {
-                    noDataView.setVisibility(View.GONE);
+                        mDataset.addAll(yourClassList);
+                        mAdapter.notifyDataSetChanged();
+                        noDataView.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.GONE);
+                    }else {
+                        progressBar.setVisibility(View.GONE);
+                        noDataView.setVisibility(View.VISIBLE);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
 
             }

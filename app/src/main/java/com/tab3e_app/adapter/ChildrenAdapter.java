@@ -148,34 +148,50 @@ public class ChildrenAdapter extends RecyclerView.Adapter<ChildrenAdapter.ViewHo
             @Override
             public void onResponse(String response) {
                 Log.d("response", response);
-                if (!response.trim().isEmpty() || !statusFailed(response)) {
-                    try {
-                        JSONArray jsonArray = new JSONArray(response);
-                        JSONObject jsonObject = jsonArray.optJSONObject(0);
-                        Gson gson = new Gson();
-                        final StudentData s = gson.fromJson(jsonObject.toString(), StudentData.class);
-                        if (s != null){
-                            viewHolder.getText2().setText(s.getName());
-                            viewHolder.getText3().setText(s.getId_card());
-                            viewHolder.getCardView1().setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    new Tab3ePrefStore(mContext).addPreference(Constants.STUDENT_ID, s.getID());
-                                    new Tab3ePrefStore(mContext).addPreference(Constants.SCHOOL_ID, s.getId_school());
-                                    new Tab3ePrefStore(mContext).addPreference(Constants.YEAR_ID, s.getYear());
-                                    new Tab3ePrefStore(mContext).addPreference(Constants.SECTION_ID, s.getSection());
-                                    new Tab3ePrefStore(mContext).addPreference(Constants.ROW_ID, s.getRow());
-                                    new Tab3ePrefStore(mContext).addPreference(Constants.TERM_ID, s.getTerm());
-                                    new Tab3ePrefStore(mContext).addPreference(Constants.STUDENT_ID_CARD, s.getId_card());
-                                    mContext.startActivity(new Intent(mContext, StudentDetails.class)
-                                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+
+                JSONArray array = null;
+                try {
+                    array = new JSONArray(response);
+                    JSONObject object = array.optJSONObject(0);
+                    String status = object.optString("status");
+                    if (!status.equalsIgnoreCase("Failed")) {
+
+                        if (!response.trim().isEmpty() || !statusFailed(response)) {
+                            try {
+                                JSONArray jsonArray = new JSONArray(response);
+                                JSONObject jsonObject = jsonArray.optJSONObject(0);
+                                Gson gson = new Gson();
+                                final StudentData s = gson.fromJson(jsonObject.toString(), StudentData.class);
+                                if (s != null){
+                                    viewHolder.getText2().setText(s.getName());
+                                    viewHolder.getText3().setText(s.getId_card());
+                                    viewHolder.getCardView1().setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            new Tab3ePrefStore(mContext).addPreference(Constants.STUDENT_ID, s.getID());
+                                            new Tab3ePrefStore(mContext).addPreference(Constants.SCHOOL_ID, s.getId_school());
+                                            new Tab3ePrefStore(mContext).addPreference(Constants.YEAR_ID, s.getYear());
+                                            new Tab3ePrefStore(mContext).addPreference(Constants.SECTION_ID, s.getSection());
+                                            new Tab3ePrefStore(mContext).addPreference(Constants.ROW_ID, s.getRow());
+                                            new Tab3ePrefStore(mContext).addPreference(Constants.TERM_ID, s.getTerm());
+                                            new Tab3ePrefStore(mContext).addPreference(Constants.STUDENT_ID_CARD, s.getId_card());
+                                            mContext.startActivity(new Intent(mContext, StudentDetails.class)
+                                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                                        }
+                                    });
                                 }
-                            });
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    }else {
+                        mDataSet.remove(viewHolder.getPosition());
+                        notifyDataSetChanged();
                     }
+                }catch (JSONException e) {
+                    e.printStackTrace();
                 }
+
 
 
             }

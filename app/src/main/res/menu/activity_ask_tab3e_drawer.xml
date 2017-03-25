@@ -7,6 +7,10 @@
             android:icon="@drawable/ic_me_about"
             android:title="@string/about_tab3e" />
         <item
+            android:id="@+id/child_list"
+            android:icon="@drawable/ic_action_add_user_button"
+            android:title="@string/child_list" />
+        <item
             android:id="@+id/log_out"
             android:icon="@drawable/ic_me_logout"
             android:title="@string/log_out" />
