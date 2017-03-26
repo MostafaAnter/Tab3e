@@ -9,8 +9,10 @@ import android.widget.TextView;
 
 import com.tab3e_app.R;
 import com.tab3e_app.R2;
+import com.tab3e_app.store.AutoCompleteStore;
 import com.tab3e_app.store.Tab3ePrefStore;
 import com.tab3e_app.util.Constants;
+import com.tab3e_app.util.SweetDialogHelper;
 import com.tab3e_app.util.Util;
 
 import butterknife.BindView;
@@ -57,7 +59,14 @@ public class SplashActivity extends AppCompatActivity {
                         public void run() {
                             progressBar.setProgress(progressStatus);
                             if (progressStatus == 100){
-                                if (new Tab3ePrefStore(SplashActivity.this).getPreferenceValue(Constants.USER_ID).trim().isEmpty()) {
+                                if (getIntent().getExtras() != null && !getIntent().getExtras().getString("id_card", "").isEmpty()){
+                                    Intent intent = new Intent(SplashActivity.this, ResultOfAskAboutStudent.class);
+                                    intent.putExtra("sID", getIntent().getExtras().getString("id_school", ""));
+                                    intent.putExtra("stID", getIntent().getExtras().getString("id_card", ""));
+                                    intent.putExtra("name", "");
+                                    startActivityForResult(intent, 101);
+
+                                }else if (new Tab3ePrefStore(SplashActivity.this).getPreferenceValue(Constants.USER_ID).trim().isEmpty()) {
                                     startActivity(new Intent(SplashActivity.this, LoginActivity.class)
                                             .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
                                 } else {
@@ -71,5 +80,16 @@ public class SplashActivity extends AppCompatActivity {
                 }
             }
         }).start(); // Start the operation
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 101) {
+            if (resultCode == RESULT_OK) {
+                //---get the result using getIntExtra()---
+                new SweetDialogHelper(SplashActivity.this).showWarningMessage("عفوا", "لاتوجد نتأج تأكد من بيانات الطالب", "موافق");
+            }
+        }
     }
 }

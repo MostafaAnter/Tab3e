@@ -55,7 +55,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
 
 
-        sendNotification(remoteMessage.getNotification().getBody());
+        sendNotification(remoteMessage.getNotification().getBody(),
+                remoteMessage.getData().get("id_card"), remoteMessage.getData().get("id_school"));
 
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
@@ -67,11 +68,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      *
      * @param messageBody FCM message body received.
      */
-    private void sendNotification(String messageBody) {
+    private void sendNotification(String messageBody, String student_card, String school_id) {
 
         Intent intent;
             intent = new Intent(this, SplashActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("id_card", student_card);
+        intent.putExtra("id_school", school_id);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
